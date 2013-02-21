@@ -27,7 +27,7 @@ class DummyController extends Zend_Controller_Action
 		$response->setHttpResponseCode(400);
         $why["error"]="Could not find email";
         $why["code"]="27";
-		$why["password"]=$password + "nitin" ;
+		$why["password"]=$password."nitin";
         return $response->setBody(json_encode($why));
 	}
 }
