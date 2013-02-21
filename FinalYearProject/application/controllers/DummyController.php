@@ -1,18 +1,11 @@
 <?php
-
-class DummyController extends Zend_Controller_Action
+class DummyController extends Zend_Rest_Controller
 {
 
     public function init()
     {
-	    print "Inside Init of Dummy Controller kaa bee";
+	    print "Inside Init of Dummy Controller kaa beenneer";
 		/* Initialize action controller here */
-    }
-
-
-    public function indexAction()
-    {
-        // action body
     }
 	
 	public function putAction()
@@ -22,11 +15,35 @@ class DummyController extends Zend_Controller_Action
         $password =  $json['password'];
         //$aws = AwsConnect::connectDynamoDB();
         
-		$response=$this->getResponse();
-		$response->setHttpResponseCode(400);
-        $why["error"]="Could not find email";
-        $why["code"]="27";
-		$why["password"]=$password."nitin";
+	$response=$this->getResponse();
+	$response->setHttpResponseCode(400);
+        //$why["error"]="Could not find email";
+        //$why["code"]="27";
+	$why=$password."nitin";
         return $response->setBody(json_encode($why));
-	}
+    }
+	
+    public function headAction() 
+    {
+        
+    }
+
+    public function indexAction() 
+    {
+        
+    }
+
+    public function postAction() 
+    {
+        
+    }
+    
+    public function getAction()
+    {
+    }
+
+    public function deleteAction() {
+        
+    }
+	 
 }
