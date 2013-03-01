@@ -7,7 +7,7 @@ class LayoutController extends Zend_Rest_Controller
     }
 
     public function getAction() {
-        
+        print "Wroking";
     }
 
     public function headAction() {
