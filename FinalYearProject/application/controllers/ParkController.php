@@ -12,10 +12,7 @@
  */
 class ParkController extends Zend_Rest_Controller
 {
-    const SLOTID='SLOTID';    
-    const LAYERID='LAYERID';
-    const LAYOUTID='LAYOUTID';
-    const POSITION='POSITION';
+    const SLOTID='SLOTID';  
     const USER='USER';
     const TIMEIN='TIMEIN';
     const RATE='RATE';
