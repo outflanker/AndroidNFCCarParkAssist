@@ -65,7 +65,33 @@ class ParkController extends Zend_Rest_Controller
         mysql_close($con); 
     }
 
-    public function getAction() {
+    public function getAction() 
+    {
+        $response=$this->getResponse();
+        $slotid= $this->_getParam ('slotid');
+        $con = mysql_connect(parent::DBSERVER, parent::DBUSER,  parent::DBPWD);
+        if (!$con)
+        {
+              print "Error";
+              die('Could not connect: ' . mysql_error());
+        }
+        else
+        {
+                mysql_select_db(parent::DATABASE, $con);
+                $query="SELECT * FROM SLOTS WHERE SLOTID='".$slotid."'";
+                $res=mysql_query($query);
+                while($row = mysql_fetch_array($res))
+                {
+                    $slotid=$row[self::SLOTID];
+                    $user=$row[self::USER];
+                    $timein=$row[self::TIMEIN];
+                    $type=$row[self::SLOTTYPE];
+                    $slots[]=array(self::SLOTID=>$slotid,self::USER=>$user,self::TIMEIN=>$timein,self::SLOTTYPE=>$type);
+                 }
+                 $jsonreturn['SLOTS']=$slots;
+                 return $response->appendBody(json_encode($jsonreturn));
+         }
+        mysql_close($con);
         
     }
 
@@ -91,12 +117,10 @@ class ParkController extends Zend_Rest_Controller
                 while($row = mysql_fetch_array($res))
                 {
                     $slotid=$row[self::SLOTID];
-                    $lyerid=$row[self::LAYERID];
-                    $lyoutid=$row[self::LAYOUTID];
-                    $pos=$row[self::POSITION];
-                    $rate=$row[self::RATE];
+                    $user=$row[self::USER];
+                    $timein=$row[self::TIMEIN];
                     $type=$row[self::SLOTTYPE];
-                    $slots[]=array(self::SLOTID=>$slotid,self::LAYERID=>$lyerid,self::LAYOUTID=>$lyoutid,self::POSITION=>$pos,  self::RATE=>$rate,  self::SLOTTYPE=>$type);
+                    $slots[]=array(self::SLOTID=>$slotid,self::USER=>$user,self::TIMEIN=>$timein,self::SLOTTYPE=>$type);
                  }
                  $jsonreturn['SLOTS']=$slots;
                  return $response->appendBody(json_encode($jsonreturn));
