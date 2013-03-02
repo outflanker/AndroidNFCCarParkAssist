@@ -28,6 +28,15 @@ class UserController extends Zend_Rest_Controller
 
     public function getAction() 
     {
+        
+    }
+
+    public function headAction() {
+        
+    }
+
+    public function indexAction() 
+    {
         $response=$this->getResponse();
                 
         $con = mysql_connect(parent::DBSERVER, parent::DBUSER,  parent::DBPWD);
@@ -51,15 +60,6 @@ class UserController extends Zend_Rest_Controller
                  return $response->appendBody(json_encode($jsonreturn));
          }
         mysql_close($con);
-        
-    }
-
-    public function headAction() {
-        
-    }
-
-    public function indexAction() {
-        
     }
 
     public function postAction()
