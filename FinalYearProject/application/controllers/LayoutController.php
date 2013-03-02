@@ -97,6 +97,8 @@ class LayoutController extends Zend_Rest_Controller
 
     public function postAction() 
     {
+        $response=$this->getResponse();
+        
         $incoming = file_get_contents(parent::PHPINPUT);
         $json = json_decode($incoming,true);
         $name=$json[self::LAYOUTNAME];
@@ -116,8 +118,17 @@ class LayoutController extends Zend_Rest_Controller
                 mysql_select_db(parent::DATABASE, $con);
                 $query="INSERT INTO LAYOUT VALUES ('".$id."','".$name."',".$numlayers.",'".$city."','".$area."','".$gps."')";
                 $res=mysql_query($query);
+                $size=0;
+                for($i=0;$i<$numlayers;$i++)
+                {
+                    $query="INSERT INTO LAYER VALUES (".$i.",'".$id."',".$size.")";
+                    $res=mysql_query($query);            
+                }
+                $jsonlayer[self::LAYOUTID]=$id;
+                $response->appendBody(json_encode($jsonlayer));
          }
-        mysql_close($con);       
+        mysql_close($con); 
+        return $response;
         
     }
 

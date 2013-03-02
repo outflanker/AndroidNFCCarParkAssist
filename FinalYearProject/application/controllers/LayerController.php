@@ -3,7 +3,8 @@
 
 class LayerController extends Zend_Rest_Controller
 {
-    public function deleteAction() {
+    public function deleteAction() 
+    {
         
     }
 
@@ -25,7 +26,7 @@ class LayerController extends Zend_Rest_Controller
 
     public function putAction() {
         
-    }    //put your code here
+    }    
 }
 
 ?>

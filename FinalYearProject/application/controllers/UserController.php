@@ -78,7 +78,6 @@ class UserController extends Zend_Rest_Controller
         {
                 mysql_select_db(parent::DATABASE, $con);
                 $query="INSERT INTO ACCOUNTS (USER,UPASSWORD) VALUES ('".$uname."','".$pass."')";
-                print $query;
                 $res=mysql_query($query);
          }
         mysql_close($con);
