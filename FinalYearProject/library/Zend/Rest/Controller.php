@@ -34,6 +34,13 @@ require_once 'Zend/Controller/Action.php';
  */
 abstract class Zend_Rest_Controller extends Zend_Controller_Action
 {
+    
+    const DBSERVER="localhost";    
+    const DBUSER="appadmin";
+    const DBPWD="apppwd";
+    const PHPINPUT="php://input";
+    const DATABASE="parkingdatabase";
+
     /**
      * The index action handles index/list requests; it should respond with a
      * list of the requested resources.
