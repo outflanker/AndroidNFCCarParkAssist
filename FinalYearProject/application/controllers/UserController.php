@@ -28,7 +28,27 @@ class UserController extends Zend_Rest_Controller
 
     public function getAction() 
     {
-        
+        $response=$this->getResponse();
+        $user= $this->_getParam ('user');
+        $con = mysql_connect(parent::DBSERVER, parent::DBUSER,  parent::DBPWD);
+        if (!$con)
+        {
+              print "Error";
+              die('Could not connect: ' . mysql_error());
+        }
+        else
+        {
+                mysql_select_db(parent::DATABASE, $con);
+                $query="SELECT * FROM ACCOUNTS WHERE USER='".$user."'";
+                $res=mysql_query($query);
+                while($row = mysql_fetch_array($res))
+                {
+                    $jsonreturn['USER']=$row[self::USER_CONST];
+                    $jsonreturn['PASSWORD']=$row[self::PASSWORD_CONST];
+                }
+                 return $response->appendBody(json_encode($jsonreturn));
+         }
+        mysql_close($con);
     }
 
     public function headAction() {
