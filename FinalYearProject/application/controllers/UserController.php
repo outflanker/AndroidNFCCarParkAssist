@@ -44,9 +44,14 @@ class UserController extends Zend_Rest_Controller
                 while($row = mysql_fetch_array($res))
                 {
                     $jsonreturn['USER']=$row[self::USER_CONST];
-                    $jsonreturn['PASSWORD']=$row[self::PASSWORD_CONST];
+                    $jsonreturn['PASSWORD']=$row['UPASSWORD'];
                 }
-                 return $response->appendBody(json_encode($jsonreturn));
+                 #print "\n".$jsonreturn;
+                 $response->appendBody(json_encode($jsonreturn));
+                # print "$response";
+                
+                 return $response;
+                 
          }
         mysql_close($con);
     }
