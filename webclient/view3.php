@@ -81,10 +81,10 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
             <div class="container">
                 <table border="1" align="center">
                     <?php
-                    if (isset($_COOKIE['MONITORLAYOUTID'])) {
-                        $layoutid = $_COOKIE['MONITORLAYOUTID'];
-//                        $layerid = $_GET['layerid'];
-//                        trim($layerid);
+                    if (isset($_COOKIE['VIEWLAYOUTID'])) {
+                        $layoutid = $_COOKIE['VIEWLAYOUTID'];
+                        $layerid = $_GET['layerid'];
+                        trim($layerid);
                         trim($layoutid);
 
                         $black = "./img/black.jpg";
@@ -105,19 +105,21 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         $max_r = ( $size - $max_c) / 10;
 
 
-                        $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Slot/layoutid=' . $layoutid );
+                        $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Slot?id=0&&layoutid=' . $layoutid . '&&layerid=' . $layerid);
                         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                         $result = curl_exec($ch);
-                        
-                        
-                        
                         curl_close($ch);
-                        $array = array();
-                        
                         $results = json_decode($result);
 
+
+
                         
+                        $array = array();
+
+                        $results = json_decode($result);
+
+
                         foreach ($results as $key => $jsons) {
                             foreach ($jsons as $key => $value) {
 
