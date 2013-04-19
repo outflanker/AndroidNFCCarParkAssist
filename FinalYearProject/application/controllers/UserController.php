@@ -28,8 +28,10 @@ class UserController extends Zend_Rest_Controller
 
     public function getAction() 
     {
+            
         $response=$this->getResponse();
-        $user= $this->_getParam ('user');
+        $user= $this->_getParam ('id');
+        
         $con = mysql_connect(parent::DBSERVER, parent::DBUSER,  parent::DBPWD);
         if (!$con)
         {
@@ -40,6 +42,8 @@ class UserController extends Zend_Rest_Controller
         {
                 mysql_select_db(parent::DATABASE, $con);
                 $query="SELECT * FROM ACCOUNTS WHERE USER='".$user."'";
+                
+                              
                 $res=mysql_query($query);
                 while($row = mysql_fetch_array($res))
                 {
@@ -102,15 +106,32 @@ class UserController extends Zend_Rest_Controller
         else
         {
                 mysql_select_db(parent::DATABASE, $con);
-                $query="INSERT INTO ACCOUNTS (USER,UPASSWORD) VALUES ('".$uname."','".$pass."')";
+                $query="UPDATE ACCOUNTS SET UPASSWORD='".$pass."' WHERE USER='".$uname."'";
                 $res=mysql_query($query);
          }
         mysql_close($con);
     }
+    
 
     public function putAction() 
     {
-        
+        $incoming = file_get_contents(parent::PHPINPUT);
+        $json = json_decode($incoming,true);
+        $uname =  $json[self::USER_CONST];
+        $pass = $json[self::PASSWORD_CONST];
+        $con = mysql_connect(parent::DBSERVER, parent::DBUSER,  parent::DBPWD);
+        if (!$con)
+        {
+              print "Error";
+              die('Could not connect: ' . mysql_error());
+        }
+        else
+        {
+                mysql_select_db(parent::DATABASE, $con);
+                $query="INSERT INTO ACCOUNTS (USER,UPASSWORD) VALUES ('".$uname."','".$pass."')";
+                $res=mysql_query($query);
+         }
+        mysql_close($con);
     }    
 }
 ?>
