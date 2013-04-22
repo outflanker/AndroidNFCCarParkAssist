@@ -7,7 +7,9 @@ class LayoutController extends Zend_Rest_Controller {
     const NUMLAYERS = 'NUMOFLAYERS';
     const CITY = 'CITY';
     const AREA = 'AREA';
-    const GPS = 'GPS';
+    const LATITUDE = 'LATITUDE';
+    const LONGITUDE = 'LONGITUDE';
+    const RATE = 'PARKINGRATE';
 
     public function deleteAction() {
         $incoming = file_get_contents(parent::PHPINPUT);
@@ -43,8 +45,11 @@ class LayoutController extends Zend_Rest_Controller {
                 $numlayers = $row[self::NUMLAYERS];
                 $city = $row[self::CITY];
                 $area = $row[self::AREA];
-                $gps = $row[self::GPS];
-                $layouts[] = array(self::LAYOUTID => $id, self::LAYOUTNAME => $name, self::NUMLAYERS => $numlayers, self::CITY => $city, self::AREA => $area, self::GPS => $gps);
+                $latitude = $row[self::LATITUDE];
+                $longitude = $row[self::LONGITUDE];
+                $rate = $row[self::RATE];
+                $layouts[] = array(self::LAYOUTID => $id, self::LAYOUTNAME => $name, self::NUMLAYERS => $numlayers, 
+                    self::CITY => $city, self::AREA => $area, self::LATITUDE => $latitude,self::LONGITUDE =>$longitude,self::RATE => $rate);
             }
             $jsonreturn['LAYOUTS'] = $layouts;
             return $response->appendBody(json_encode($jsonreturn));
@@ -74,8 +79,11 @@ class LayoutController extends Zend_Rest_Controller {
                 $numlayers = $row[self::NUMLAYERS];
                 $city = $row[self::CITY];
                 $area = $row[self::AREA];
-                $gps = $row[self::GPS];
-                $layouts[] = array(self::LAYOUTID => $id, self::LAYOUTNAME => $name, self::NUMLAYERS => $numlayers, self::CITY => $city, self::AREA => $area, self::GPS => $gps);
+                $latitude = $row[self::LATITUDE];
+                $longitude = $row[self::LONGITUDE];
+                $rate = $row[self::RATE];
+                $layouts[] = array(self::LAYOUTID => $id, self::LAYOUTNAME => $name, self::NUMLAYERS => $numlayers, self::CITY => $city,
+                    self::AREA => $area, self::LATITUDE => $latitude,self::LONGITUDE =>$longitude,self::RATE => $rate);
             }
             $jsonreturn['LAYOUTS'] = $layouts;
             return $response->appendBody(json_encode($jsonreturn));
@@ -89,6 +97,7 @@ class LayoutController extends Zend_Rest_Controller {
         $response = $this->getResponse();
 
         $incoming = file_get_contents(parent::PHPINPUT);
+        
         $json = json_decode($incoming, true);
 
         $id = $json[self::LAYOUTID];
@@ -110,7 +119,10 @@ class LayoutController extends Zend_Rest_Controller {
             $name = $json[self::LAYOUTNAME];
            $city = $json[self::CITY];
             $area = $json[self::AREA];
-            $gps = $json[self::GPS];
+            $latitude = $json[self::LATITUDE];
+                $longitude = $json[self::LONGITUDE];
+                $rate = $json[self::RATE];
+                
 
             $con = mysql_connect(parent::DBSERVER, parent::DBUSER, parent::DBPWD);
             if (!$con) {
@@ -118,23 +130,38 @@ class LayoutController extends Zend_Rest_Controller {
                 die('Could not connect: ' . mysql_error());
             } else {
                 mysql_select_db(parent::DATABASE, $con);
-                $query = "UPDATE LAYOUT SET LAYOUTNAME='" . $name . "',CITY='" . $city . "',AREA='" . $area . "',GPS='" . $gps . "' WHERE LAYOUTID='" . $id . "'";
-                 $res = mysql_query($query);
+                $query = "UPDATE LAYOUT SET LAYOUTNAME='" . $name . "',CITY='" . $city . "',AREA='" . $area . "',LATITUDE='" . $latitude . "',LONGITUDE='" . $longitude . "',PARKINGRATE='" . $rate . "' WHERE LAYOUTID='" . $id . "'";
+                print $query; 
+                $res = mysql_query($query);
             }
         }
         mysql_close($con);
     }
+    
+    
 
     public function putAction() {
+//        print "inside put";
         $response = $this->getResponse();
 
         $incoming = file_get_contents(parent::PHPINPUT);
+//        print "inside put".$incoming;
         $json = json_decode($incoming, true);
+//        print "inside put";
+//        print "the json is : " . $json;
+        
+        
         $name = $json[self::LAYOUTNAME];
         $numlayers = $json[self::NUMLAYERS];
         $city = $json[self::CITY];
         $area = $json[self::AREA];
-        $gps = $json[self::GPS];
+        $latitude = $json[self::LATITUDE];
+        $longitude = $json[self::LONGITUDE];
+        $rate = $json[self::RATE];
+        
+        
+//        print "tekkai";
+//        print $name . "    " .$city ."   " .$area . "   " . $latitude . "   " .$longitude . "   " . $rate . "   " . $numlayers;
         $id = substr($city, 0, 3) . substr($area, 0, 3) . substr($name, 0, 4);
         $con = mysql_connect(parent::DBSERVER, parent::DBUSER, parent::DBPWD);
         if (!$con) {
@@ -142,11 +169,11 @@ class LayoutController extends Zend_Rest_Controller {
             die('Could not connect: ' . mysql_error());
         } else {
             mysql_select_db(parent::DATABASE, $con);
-            $query = "INSERT INTO LAYOUT VALUES ('" . $id . "','" . $name . "'," . $numlayers . ",'" . $city . "','" . $area . "','" . $gps . "')";
+            $query = "INSERT INTO LAYOUT VALUES ('" . $id . "','" . $name . "','" . $numlayers . "','" . $city . "','" . $area . "','" . $latitude . "','" . $longitude . "','" . $rate . "')";
             $res = mysql_query($query);
             $size = 0;
             for ($i = 0; $i < $numlayers; $i++) {
-                $query = "INSERT INTO LAYER VALUES (" . $i . ",'" . $id . "'," . $size . ")";
+                $query = "INSERT INTO LAYER VALUES ('" . $i . "','" . $id . "','" . $size . "')";
                 $res = mysql_query($query);
             }
             $jsonlayer[self::LAYOUTID] = $id;

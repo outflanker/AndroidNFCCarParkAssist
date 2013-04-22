@@ -40,27 +40,13 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         
                 }, "Size is not in the right format (should be in dd format )");
                         
-                        
-                $.validator.addMethod("parkingnotEqualTo", function(value, element) {
-                    return $('#parkingrate').val() != 0;
-                }, "Parking rate cannot be 0");        
-                        
-                
                 $("#layerinput").validate({
                     rules: {
                         layoutsize :{
                             required: true,
                             number: true,
                             sizenotEqualTo : true
-                        },
-                            
-                        parkingrate :{
-                            required: true,
-                            number: true,
-                            parkingnotEqualTo : true
                         }
-                        
-                                              
                     },
                     messages: {
                         layoutsize :
@@ -68,11 +54,6 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                             required : "Please enter the layoutsize",
                             number: "Layout size has to be a number "
                             
-                        },
-                        parkingrate: {
-                                                      
-                            required: "Please enter the parking rate",
-                            number: "Parking rate has to be a number"
                         }
                     }
                     
@@ -163,20 +144,6 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                 <input type="text" name='layoutsize' id='layoutsize' placeholder="" class="input-xlarge">
                             </div>
                         </div>
-
-                        <div class="control-group">
-                            <label class="control-label"  for="numlayers">Parking Rate</label>
-                            <div class="controls">
-                                <input type="text" name='parkingrate' id='parkingrate' placeholder="" class="input-xlarge">
-                            </div>
-                        </div>
-
-
-
-
-
-
-
 
                         <!-- Submit -->
                         <div class="control-group">

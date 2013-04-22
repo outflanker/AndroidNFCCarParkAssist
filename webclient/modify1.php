@@ -26,19 +26,39 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <script src="js/signout.js"></script>  
         <script>
             $(document).ready(function(){
-                var result = true;               
+                var result = true;   
+                
+                
+                
+                 $.validator.addMethod("parkingnotEqualTo", function(value, element) {
+                    return $('#parkingrate').val() != 0;
+                }, "Parking rate cannot be 0");        
+                 
                 $("#layoutinput").validate({
                     rules: {
                         layoutname :"required",
                         city : "required",
                         area : "required",
-                        gps : "required"                    
+                        lati : "required",
+                        longi : "required",
+                        rate :{
+                            required: true,
+                            number: true,
+                            parkingnotEqualTo : true
+                        }                   
                     },
                     messages: {
                         layoutname :"Please enter a layoutname",
                         city : "Please enter a city",
                         area : "Please enter an area",
-                        gps : "Please enter a gps value"
+                        lati : "Please enter a latitude value",
+                        longi : "Please enter a longitude value",
+                        rate: {
+                                                      
+                            required: "Please enter the parking rate",
+                            number: "Parking rate has to be a number"
+                        }
+                    
                         
                     }
                     
@@ -155,7 +175,9 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
             $layoutname = $results['LAYOUTS'][0]['LAYOUTNAME'];
             $layoutcity = $results['LAYOUTS'][0]['CITY'];
             $layoutarea = $results['LAYOUTS'][0]['AREA'];
-            $layoutgps = $results['LAYOUTS'][0]['GPS'];
+            $layoutlatitude = $results['LAYOUTS'][0]['LATITUDE'];
+            $layoutlongitude = $results['LAYOUTS'][0]['LONGITUDE'];
+            $layoutrate = $results['LAYOUTS'][0]['PARKINGRATE'];
             ?>
             <div class="content">
                 <div class="container">
@@ -191,9 +213,23 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                 </div>
 
                                 <div class="control-group">
-                                    <label class="control-label"  for="gps">GPS Position</label>
+                                    <label class="control-label"  for="gps">Latitude</label>
                                     <div class="controls">
-                                        <input type="text" name='gps' value="<?php echo $layoutgps; ?>" id='gps' placeholder="" class="input-xlarge">
+                                        <input type="text" name='lati' value="<?php echo $layoutlatitude; ?>" id='lati' placeholder="" class="input-xlarge">
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+                                    <label class="control-label"  for="gps">Longitude</label>
+                                    <div class="controls">
+                                        <input type="text" name='longi' value="<?php echo $layoutlongitude; ?>" id='longi' placeholder="" class="input-xlarge">
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+                                    <label class="control-label"  for="gps">Parking Rate</label>
+                                    <div class="controls">
+                                        <input type="text" name='rate' value="<?php echo $layoutrate; ?>" id='rate' placeholder="" class="input-xlarge">
                                     </div>
                                 </div>
 

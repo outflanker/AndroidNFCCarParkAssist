@@ -5,7 +5,6 @@ class SlotController extends Zend_Rest_Controller
     const LAYERID='LAYERID';
     const LAYOUTID='LAYOUTID';
     const POSITION='POSITION';
-    const RATE='RATE';
     const SLOTTYPE='SLOTTYPE';
 
     public function deleteAction() 
@@ -22,10 +21,9 @@ class SlotController extends Zend_Rest_Controller
         }
         else
         {
-                $rate=0.0;
                 $type=0;
                 mysql_select_db(parent::DATABASE, $con);
-                $query="UPDATE SLOTS SET RATE=".$rate." , SLOTTYPE=".$type." WHERE SLOTID='".$slotid."'";
+                $query="UPDATE SLOTS SET SLOTTYPE=".$type." WHERE SLOTID='".$slotid."'";
                 $res=mysql_query($query);
         }
         mysql_close($con);  
@@ -54,9 +52,8 @@ class SlotController extends Zend_Rest_Controller
                     $lyerid=$row[self::LAYERID];
                     $lyoutid=$row[self::LAYOUTID];
                     $pos=$row[self::POSITION];
-                    $rate=$row[self::RATE];
                     $type=$row[self::SLOTTYPE];
-                    $slots[]=array(self::SLOTID=>$slotid,self::LAYERID=>$lyerid,self::LAYOUTID=>$lyoutid,self::POSITION=>$pos,  self::RATE=>$rate,  self::SLOTTYPE=>$type);
+                    $slots[]=array(self::SLOTID=>$slotid,self::LAYERID=>$lyerid,self::LAYOUTID=>$lyoutid,self::POSITION=>$pos,self::SLOTTYPE=>$type);
                  }
                  $jsonreturn['SLOTS']=$slots;
                  return $response->appendBody(json_encode($jsonreturn));
@@ -89,9 +86,8 @@ class SlotController extends Zend_Rest_Controller
                     $lyerid=$row[self::LAYERID];
                     $lyoutid=$row[self::LAYOUTID];
                     $pos=$row[self::POSITION];
-                    $rate=$row[self::RATE];
                     $type=$row[self::SLOTTYPE];
-                    $slots[]=array(self::SLOTID=>$slotid,self::LAYERID=>$lyerid,self::LAYOUTID=>$lyoutid,self::POSITION=>$pos,  self::RATE=>$rate,  self::SLOTTYPE=>$type);
+                    $slots[]=array(self::SLOTID=>$slotid,self::LAYERID=>$lyerid,self::LAYOUTID=>$lyoutid,self::POSITION=>$pos,self::SLOTTYPE=>$type);
                  }
                  $jsonreturn['SLOTS']=$slots;
                  return $response->appendBody(json_encode($jsonreturn));
@@ -108,7 +104,6 @@ class SlotController extends Zend_Rest_Controller
         $incoming = file_get_contents(parent::PHPINPUT);
         $json = json_decode($incoming,true);
         $slotid=$json[self::SLOTID];
-        $rate=$json[self::RATE];
         $type=$json[self::SLOTTYPE];
         
         $con = mysql_connect(parent::DBSERVER, parent::DBUSER,  parent::DBPWD);
@@ -120,7 +115,7 @@ class SlotController extends Zend_Rest_Controller
         else
         {
                 mysql_select_db(parent::DATABASE, $con);
-                $query="UPDATE SLOTS SET RATE=".$rate." , SLOTTYPE=".$type." WHERE SLOTID='".$slotid."'";
+                $query="UPDATE SLOTS SET SLOTTYPE=".$type." WHERE SLOTID='".$slotid."'";
                 $res=mysql_query($query);
         }
         mysql_close($con);        

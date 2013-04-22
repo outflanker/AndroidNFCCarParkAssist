@@ -130,7 +130,8 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 ?>
                 <table border="1" class="table table-hover">
                     <tr><th>LAYOUTID</th><th>LAYOUTNAME</th><th>NUMBEROFLAYERS</th><th>AREA</th><th>CITY</th>
-                        <th>GPS</th><th>MODIFY</th><th>DELETE</th>
+                        <th>LATITUDE</th>
+                    <th>LONGITUDE</th><th>PARKINGRATE</th><th>MODIFY</th><th>DELETE</th>
                     </tr>
                     <?php
                     $results = json_decode($result);

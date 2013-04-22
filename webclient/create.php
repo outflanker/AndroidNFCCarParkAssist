@@ -28,9 +28,14 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
             $(document).ready(function(){
                 
                
-               $.validator.addMethod("notEqualTo", function(value, element) {
+                $.validator.addMethod("notEqualTo", function(value, element) {
                     return $('#numlayers').val() != 0;
                 }, "Number of layers cannot be 0");
+                
+                
+                $.validator.addMethod("parkingnotEqualTo", function(value, element) {
+                    return $('#parkingrate').val() != 0;
+                }, "Parking rate cannot be 0");        
                         
                 
                 $("#layoutinput").validate({
@@ -38,14 +43,17 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         layoutname :"required",
                         city : "required",
                         area : "required",
-                        gps : "required" ,
-                        
-                        numlayers: {
-                            
-                            
+                        lati : "required",
+                        longi : "required",
+                        rate :{
                             required: true,
                             number: true,
-                            notEqualTo : true
+                            parkingnotEqualTo : true
+                        },
+                        numlayers : {
+                            required : true,
+                            number :true,
+                            notEqualTo :true
                         }
                         
                     },
@@ -53,21 +61,27 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         layoutname :"Please enter a layoutname",
                         city : "Please enter a city",
                         area : "Please enter an area",
-                        gps : "Please enter a gps value",
-                        
-                        numlayers: {
+                        lati : "Please enter a latitude value",
+                        longi : "Please enter a longitude value",
+                        rate: {
+                                                      
+                            required: "Please enter the parking rate",
+                            number: "Parking rate has to be a number"
+                        },
+                        numlayers : {
                             
-                            
-                            required: "Please enter the number of layers",
-                            number: "Number of layers has to be a number"
-                            
+                            required : "Please enter the number of layers",
+                            number : "Number of layers has to be a number"
                         }
+                        
+                    
+                        
                     }
                     
-                });                
+                });         
                  
                  
-                   });
+            });
    
     
 
@@ -159,11 +173,26 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label"  for="gps">GPS Position</label>
+                                <label class="control-label"  for="gps">Latitude</label>
                                 <div class="controls">
-                                    <input type="text" name='gps' id='gps' placeholder="" class="input-xlarge">
+                                    <input type="text" name='lati' id='lati' placeholder="" class="input-xlarge">
                                 </div>
                             </div>
+
+                            <div class="control-group">
+                                <label class="control-label"  for="gps">Longitude</label>
+                                <div class="controls">
+                                    <input type="text" name='longi' id='longi' placeholder="" class="input-xlarge">
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label"  for="gps">Parking Rate</label>
+                                <div class="controls">
+                                    <input type="text" name='rate' id='rate' placeholder="" class="input-xlarge">
+                                </div>
+                            </div>
+
 
                             <div class="control-group">
                                 <label class="control-label"  for="numlayers">Number of Layers</label>
@@ -177,7 +206,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                             <!-- Submit -->
                             <div class="control-group">
                                 <div class="controls">
-                                   <button  class="btn btn-success" id='done'>Next >></button>
+                                    <button  class="btn btn-success" id='done'>Next >></button>
                                 </div>
                             </div>
 

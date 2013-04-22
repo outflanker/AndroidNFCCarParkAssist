@@ -25,7 +25,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <script src="js/bootstrap.js"></script>
         <script src="js/signout.js"></script>   
         <script>
-            function change(slotId,rate)
+            function change(slotId)
             {
                 if(document.getElementById(slotId).src=="http://localhost:8888/parking/webclient/img/vacant.png")    
                 {
@@ -35,7 +35,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
  
                     var xhr = new XMLHttpRequest();
 
-                    var params = "slotid="+slotId+"&rate="+rate+"&slottype="+"2";
+                    var params = "slotid="+slotId+"&slottype="+"2";
                     xhr.open("POST", "http://localhost:8888/parking/webclient/sendSlotRequest.php", true);
                     xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
                     xhr.setRequestHeader( "Content-length", params.length );
@@ -45,7 +45,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                     {
                         if (xhr.readyState==4 && xhr.status==200)
                         {
-                            document.getElementById("myDiv").innerHTML=xhr.responseText;
+                            
                         }
                     }
 
@@ -65,7 +65,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 
                     var xhr = new XMLHttpRequest();
 
-                    var params = "slotid="+slotId+"&rate="+rate+"&slottype="+"1";
+                    var params = "slotid="+slotId+"&slottype="+"1";
                     xhr.open("POST", "http://localhost:8888/parking/webclient/sendSlotRequest.php", false);
                     xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
                     xhr.setRequestHeader( "Content-length", params.length );
@@ -75,7 +75,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                     {
                         if (xhr.readyState==4 && xhr.status==200)
                         {
-                            document.getElementById("myDiv").innerHTML=xhr.responseText;
+                            
                         }
                     }
 
@@ -279,7 +279,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                             }
                         }
 
-                        $parkingRate = 0;
+                        
                         print "<table border='1' id='tab" . $k . "' align='center'>";
 
                         for ($i = 0; $i < $max_r; $i++) {
@@ -293,11 +293,11 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                 $type = $typer[$i][$j];
 
                                 if ($type == "0") {
-                                    echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"$black\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "','" . $parkingRate . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                    echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"$black\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
                                 } else if ($type == "1") {
-                                    echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$blue\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "','" . $parkingRate . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                    echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$blue\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
                                 } else if ($type == "2") {
-                                    echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$red\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "','" . $parkingRate . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                    echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$red\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
                                 }
                                 
                                 echo "</td>";

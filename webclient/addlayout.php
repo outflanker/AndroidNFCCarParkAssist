@@ -8,17 +8,21 @@
                     $layoutName = $_POST['layoutname'];
                     $city = $_POST['city'];
                     $area = $_POST['area'];
-                    $gps = $_POST['gps'];
+                    $latitude = $_POST['lati'];
+                    $longitude = $_POST['longi'];
+                    $rate = $_POST['rate'];
                     $numOfLayers = $_POST['numlayers'];
 
                     trim($layoutName);
                     trim($city);
                     trim($area);
-                    trim($gps);
+                    trim($latitude);
+                    trim($longitude);
+                    trim($rate);
                     trim($numOfLayers);
 
-
-
+//                    print $layoutName . "    " .$city ."   " .$area . "   " . $latitude . "   " .$longitude . "   " . $rate . "   " . $numOfLayers;
+// 
 
 //        print "it starts ".$numOfLayers;
 
@@ -27,7 +31,7 @@
                     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
                     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
                     curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"LAYOUTNAME\":\"" . $layoutName . "\",\"CITY\":\"" . $city . "\",
-                                \"AREA\":\"" . $area . "\",\"GPS\":\"" . $gps . "\",\"NUMOFLAYERS\":\"" . $numOfLayers . "\"}");
+                                \"AREA\":\"" . $area . "\",\"LATITUDE\":\"" . $latitude . "\",\"LONGITUDE\":\"" . $longitude . "\",\"PARKINGRATE\":\"" . $rate . "\",\"NUMOFLAYERS\":\"" . $numOfLayers . "\"}");
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     $result = curl_exec($ch);
 //        print $result;
@@ -37,6 +41,8 @@
                     $layout = json_decode($result, true);
 
                     $layoutID = $layout['LAYOUTID'];
+                    
+                    print $layoutID;
                     
                     setcookie("CREATELAYOUTID", $layoutID);
                     header("Location: create1.php");

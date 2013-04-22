@@ -35,7 +35,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
  
                 var xhr = new XMLHttpRequest();
 
-                var params = "slotid="+slotId+"&rate="+rate+"&slottype="+"0";
+                var params = "slotid="+slotId+"&slottype="+"0";
                 xhr.open("POST", "http://localhost:8888/parking/webclient/sendSlotRequest.php", true);
                 xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
                 xhr.setRequestHeader( "Content-length", params.length );
@@ -45,7 +45,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 {
                     if (xhr.readyState==4 && xhr.status==200)
                     {
-                        document.getElementById("myDiv").innerHTML=xhr.responseText;
+                       
                     }
                 }
 
@@ -65,7 +65,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 
                 var xhr = new XMLHttpRequest();
 
-                var params = "slotid="+slotId+"&rate="+rate+"&slottype="+"1";
+                var params = "slotid="+slotId+"&slottype="+"1";
                 xhr.open("POST", "http://localhost:8888/parking/webclient/sendSlotRequest.php", false);
                 xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
                 xhr.setRequestHeader( "Content-length", params.length );
@@ -75,7 +75,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 {
                     if (xhr.readyState==4 && xhr.status==200)
                     {
-                        document.getElementById("myDiv").innerHTML=xhr.responseText;
+                        
                     }
                 }
 
@@ -155,11 +155,11 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         $layoutSize = $_POST['layoutsize'];
                         $layoutSizeOriginal = $_COOKIE['MODIFYLAYERSIZEORIGINAL'];
                         
-                        $parkingRate = $_POST['parkingrate'];
+                        
                         trim($layerID);
                         trim($layoutID);
                         trim($layoutSize);
-                        trim($parkingRate);
+                        
 
 //                    print_r($_POST);
                         
@@ -233,11 +233,11 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                 $type = $typer[$i][$j];
 
                                 if ($type == "0") {
-                                    echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"$black\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "','" . $parkingRate . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                    echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"$black\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
                                 } else if ($type == "1") {
-                                    echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$blue\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "','" . $parkingRate . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                    echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$blue\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
                                 } else if ($type == "2") {
-                                    echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$red\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "','" . $parkingRate . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                    echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$red\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
                                 }
                                 }
                                 echo "</td>";

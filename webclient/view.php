@@ -104,7 +104,8 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 ?>
                 <table border="1"  id="layouttable" class="table table-hover">
                     <!--                     table-condensed"-->
-                    <tr><th>LAYOUTID</th><th>LAYOUTNAME</th><th>NUMBEROFLAYERS</th><th>AREA</th><th>CITY</th><th>GPS</th></tr>
+                    <tr><th>LAYOUTID</th><th>LAYOUTNAME</th><th>NUMBEROFLAYERS</th><th>AREA</th><th>CITY</th><th>LATITUDE</th>
+                    <th>LONGITUDE</th><th>PARKINGRATE</th></tr>
                     <?php
                     $results_arr = json_decode($result, true);
                     $empty = $results_arr['LAYOUTS'];
