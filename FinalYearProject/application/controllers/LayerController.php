@@ -29,12 +29,22 @@ class LayerController extends Zend_Rest_Controller {
         $layoutid = $this->_getParam('layoutid');
 
         $con = mysql_connect(parent::DBSERVER, parent::DBUSER, parent::DBPWD);
-        if (!$con) {
+        if (!$con) 
+        {
             print "Error";
             die('Could not connect: ' . mysql_error());
-        } else {
+        } 
+        else 
+        {
             mysql_select_db(parent::DATABASE, $con);
-            $query = "SELECT * FROM LAYER WHERE LAYOUTID='" . $layoutid . "' AND LAYERID='" . $layerid . "'";
+            if(layerid==NULL)
+            {
+                $query = "SELECT * FROM LAYER WHERE LAYOUTID='" . $layoutid . "'";
+            }
+            else
+            {
+                $query = "SELECT * FROM LAYER WHERE LAYOUTID='" . $layoutid . "' AND LAYERID='" . $layerid . "'";
+            }
             $res = mysql_query($query);
             while ($row = mysql_fetch_array($res)) {
                 $lyerid = $row[self::LAYERID];
