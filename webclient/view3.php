@@ -44,9 +44,10 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         <div class="nav-collapse collapse">        
                             <ul class="nav pull-right">
 
-                                <li><a href="view.php">View </a></li>
-                                <li><a href="create.php">Create Layout</a></li>
-                                <li><a href="modify.php">Alter Layout</a></li>
+                                <li><a href="monitor.php">Monitor </a></li>
+                                <li><a href="view.php" class='active-link' >View </a></li>
+                                <li><a href="create.php">Create</a></li>
+                                <li><a href="modify.php">Alter </a></li>
 
 
                                 <?php
@@ -87,10 +88,16 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         trim($layerid);
                         trim($layoutid);
 
-                        $black = "./img/black.jpg";
-                        $red = "./img/red.jpg";
-                        $blue = "./img/blue.jpg";
+//                        $black = "./img/black.jpg";
+//                        $red = "./img/red.jpg";
+//                        $blue = "./img/blue.jpg";
 
+
+                        $black = "./img/noparking.png";
+                        $red = "./img/occupied.png";
+                        $blue = "./img/vacant.png";
+
+                        
                         $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer?id=0&&layoutid=' . $layoutid . '&&layerid=' . $layerid);
                         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

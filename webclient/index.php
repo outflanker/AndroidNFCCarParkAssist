@@ -46,8 +46,8 @@
                                     ?>
                                     <li><a href="monitor.php">Monitor</a></li>
                                     <li><a href="view.php">View </a></li>
-                                    <li><a href="create.php">Create Layout</a></li>
-                                    <li><a href="modify.php">Alter Layout</a></li>
+                                    <li><a href="create.php">Create</a></li>
+                                    <li><a href="modify.php">Alter</a></li>
                                     <?php
                                     print "<li class = 'dropdown'><a href = '#' class = 'dropdown-toggle'";
                                     print "data-toggle = 'dropdown' >" . $_COOKIE['LOGINUSERNAME'] . "<b class = 'caret'></b></a>";
@@ -62,8 +62,8 @@
                                     ?>
                                     <li><a href="signin.php">Monitor</a></li>
                                     <li><a href="signin.php">View </a></li>
-                                    <li><a href="signin.php">Create Layout</a></li>
-                                    <li><a href="signin.php">Alter Layout</a></li>
+                                    <li><a href="signin.php">Create</a></li>
+                                    <li><a href="signin.php">Alter</a></li>
                                     <li><a href='signup.php'>Sign up</a></li>
                                     <li><a href='signin.php'>Sign in</a></li>
                                     <?php

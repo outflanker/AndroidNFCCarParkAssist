@@ -24,7 +24,19 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" ></script>
         <script src="js/bootstrap.js"></script>
         <script src="js/signout.js"></script>        
+        <script>
+            $(document).ready(function() {
 
+                $('#layertable tr').click(function() {
+                    var href = $(this).find("a").attr("href");
+                    if(href) {
+                        window.location = href;
+                    }
+                });
+
+            });
+    
+        </script>
     </head>
     <body>
         <!-- Start: HEADER -->
@@ -44,9 +56,10 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         <div class="nav-collapse collapse">        
                             <ul class="nav pull-right">
 
-                                <li><a href="view.php">View </a></li>
-                                <li><a href="create.php">Create Layout</a></li>
-                                <li><a href="modify.php">Alter Layout</a></li>
+                                <li><a href="monitor.php">Monitor </a></li>
+                                <li><a href="view.php" class='active-link' >View </a></li>
+                                <li><a href="create.php">Create</a></li>
+                                <li><a href="modify.php">Alter </a></li>
 
 
                                 <?php
@@ -80,7 +93,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <div class="content">
             <div class="container">
                 <h1>Select Level/Layer for the given layout</h1>
-                <table border="1">
+                <table border="1" id="layertable" class="table table-hover">
                     <tr>
                         <th>Layer No</th>
                         <th>Status</th>
@@ -119,10 +132,10 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
 
                             if ($size == 0) {
-                                print '<tr><td>' . $i . '</td>';
+                                print '<tr class="warning" ><td>' . $i . '</td>';
                                 print '<td>Not Defined</td></tr>';
                             } else {
-                                print '<tr><td><a href="./view3.php?layoutid=' . $layoutID . '&&layerid=' . $i . '">' . $i . '</a></td>';
+                                print '<tr><td>' . $i . '<a href="./view3.php?layoutid=' . $layoutID . '&&layerid=' . $i . '"></a></td>';
                                 print '<td>Done</td></tr>';
                             }
                         }

@@ -67,14 +67,14 @@ if (isset($_COOKIE['LOGINUSERNAME']))
                                 return true;
                             },
                             success: function(msg){                        
-                                alert(msg);
+                                
                                 if(msg == "Validated")
                                 {
                                     return true;                                                                                        
                                 }
                                 if(msg=="Incorrect password")
                                 {
-                                    
+                                    alert(msg);
                                     $("#lusername").val("");
                                     $("#lpassword").val("");
                                     
@@ -111,9 +111,10 @@ if (isset($_COOKIE['LOGINUSERNAME']))
                         <div class="nav-collapse collapse">        
                             <ul class="nav pull-right">
 
-                                <li><a href="signin.php">View </a></li>
-                                <li><a href="signin.php">Create Layout</a></li>
-                                <li><a href="signin.php">Alter Layout</a></li>
+                                <li><a href="signin.php">Monitor</a></li>
+                                <li><a href="signin.php">View</a></li>
+                                <li><a href="signin.php">Create</a></li>
+                                <li><a href="signin.php">Alter</a></li>
                                 <li><a href='signup.php' >Sign up</a></li>
                                  <li><a href='signin.php' class='active-link'>Sign in</a></li>
 
@@ -158,7 +159,7 @@ if (isset($_COOKIE['LOGINUSERNAME']))
                                 </br>
 
                                 <h4><i class="icon-question-sign"></i> Don't have an account?</h4>
-                                <a href="signup.php" class="btn btn-large bottom-space">Signup</a>
+                                <a href="signup.php" class="btn btn-large btn-inverse bottom-space">Signup</a>
                             </div>
                         </div>
                     </div>

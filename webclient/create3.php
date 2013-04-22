@@ -33,16 +33,16 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
     <script>
         function change(slotId,rate)
         {
-            if(document.getElementById(slotId).src=="http://localhost:8888/parking/webclient/img/blue.jpg")    
+            if(document.getElementById(slotId).src=="http://localhost:8888/parking/webclient/img/vacant.png")    
             {
-                document.getElementById(slotId).src="http://localhost:8888/parking/webclient/img/black.jpg";
+                document.getElementById(slotId).src="http://localhost:8888/parking/webclient/img/noparking.png";
  
  
  
                 var xhr = new XMLHttpRequest();
 
                 var params = "slotid="+slotId+"&rate="+rate+"&slottype="+"0";
-                xhr.open("POST", "http://localhost:8888/parking/webclient/functionality/sendSlotRequest.php", true);
+                xhr.open("POST", "http://localhost:8888/parking/webclient/sendSlotRequest.php", true);
                 xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
                 xhr.setRequestHeader( "Content-length", params.length );
                 xhr.setRequestHeader( "Connection", "close" );
@@ -63,9 +63,9 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                   
                   
                   
-            else if(document.getElementById(slotId).src=="http://localhost:8888/parking/webclient/img/black.jpg")    
+            else if(document.getElementById(slotId).src=="http://localhost:8888/parking/webclient/img/noparking.png")    
             {
-                document.getElementById(slotId).src="http://localhost:8888/parking/webclient/img/blue.jpg";
+                document.getElementById(slotId).src="http://localhost:8888/parking/webclient/img/vacant.png";
                            
                 
                 
@@ -114,9 +114,10 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         <div class="nav-collapse collapse">        
                             <ul class="nav pull-right">
 
-                                <li><a href="view.php">View </a></li>
-                                <li><a href="create.php">Create Layout</a></li>
-                                <li><a href="modify.php">Alter Layout</a></li>
+                                <li><a href="monitor.php">Monitor </a></li>
+                                <li><a href="view.php" >View </a></li>
+                                <li><a href="create.php" class='active-link'>Create</a></li>
+                                <li><a href="modify.php" >Alter </a></li>
 
 
                                 <?php
@@ -177,9 +178,9 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
 
 
-                        $black = "./img/black.jpg";
-                        $red = "./img/red.jpg";
-                        $blue = "./img/blue.jpg";
+                        $black = "./img/noparking.png";
+                        $red = "./img/occupied.png";
+                        $blue = "./img/vacant.png";
 
                         $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Slot?id=0&&layoutid=' . $layoutID . '&&layerid=' . $layerID);
                         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));

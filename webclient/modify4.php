@@ -9,7 +9,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Bootbusiness | Short description about company">
         <meta name="author" content="Your name">
-        <title>VIEW GRID</title>
+        <title>MODIFY</title>
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <!-- Bootstrap responsive -->
@@ -27,16 +27,16 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <script>
         function change(slotId,rate)
         {
-            if(document.getElementById(slotId).src=="http://localhost:8888/parking/webclient/img/blue.jpg")    
+            if(document.getElementById(slotId).src=="http://localhost:8888/parking/webclient/img/vacant.png")    
             {
-                document.getElementById(slotId).src="http://localhost:8888/parking/webclient/img/black.jpg";
+                document.getElementById(slotId).src="http://localhost:8888/parking/webclient/img/noparking.png";
  
  
  
                 var xhr = new XMLHttpRequest();
 
                 var params = "slotid="+slotId+"&rate="+rate+"&slottype="+"0";
-                xhr.open("POST", "http://localhost:8888/parking/webclient/functionality/sendSlotRequest.php", true);
+                xhr.open("POST", "http://localhost:8888/parking/webclient/sendSlotRequest.php", true);
                 xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
                 xhr.setRequestHeader( "Content-length", params.length );
                 xhr.setRequestHeader( "Connection", "close" );
@@ -57,9 +57,9 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                   
                   
                   
-            else if(document.getElementById(slotId).src=="http://localhost:8888/parking/webclient/img/black.jpg")    
+            else if(document.getElementById(slotId).src=="http://localhost:8888/parking/webclient/img/noparking.png")    
             {
-                document.getElementById(slotId).src="http://localhost:8888/parking/webclient/img/blue.jpg";
+                document.getElementById(slotId).src="http://localhost:8888/parking/webclient/img/vacant.png";
                            
                 
                 
@@ -109,9 +109,10 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         <div class="nav-collapse collapse">        
                             <ul class="nav pull-right">
 
-                                <li><a href="view.php">View </a></li>
-                                <li><a href="create.php">Create Layout</a></li>
-                                <li><a href="modify.php">Alter Layout</a></li>
+                                <li><a href="monitor.php">Monitor </a></li>
+                                <li><a href="view.php" >View </a></li>
+                                <li><a href="create.php">Create</a></li>
+                                <li><a href="modify.php" class='active-link'>Alter </a></li>
 
 
                                 <?php
@@ -144,7 +145,8 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <!-- Start: MAIN CONTENT -->
         <div class="content">
             <div class="container">
-                <table border="1" align="center">
+                <table border="1" align="center" >
+                       
                     <?php
                     if (isset($_COOKIE['MODIFYLAYOUTID']) && isset($_COOKIE['MODIFYLAYERID']) && isset($_COOKIE['MODIFYLAYERSIZEORIGINAL'])) {
                         $layoutID = $_COOKIE['MODIFYLAYOUTID'];
@@ -170,9 +172,9 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 //                    print $result;
                         curl_close($ch);
                         
-                         $black = "./img/black.jpg";
-                        $red = "./img/red.jpg";
-                        $blue = "./img/blue.jpg";
+                        $black = "./img/noparking.png";
+                        $red = "./img/occupied.png";
+                        $blue = "./img/vacant.png";
                         
                         
                         
@@ -234,15 +236,16 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                     echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"$black\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "','" . $parkingRate . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
                                 } else if ($type == "1") {
                                     echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$blue\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "','" . $parkingRate . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
-//                                } else if ($type == "2") {
-//                                    echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$red\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "','" . $parkingRate . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
-//                                }
+                                } else if ($type == "2") {
+                                    echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$red\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "','" . $parkingRate . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                }
                                 }
                                 echo "</td>";
                             }
                             echo "</tr>";
                         }
-                    }
+                    
+                        
                     }
                     ?>
                 </table>

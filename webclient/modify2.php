@@ -9,7 +9,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Bootbusiness | Short description about company">
         <meta name="author" content="Your name">
-        <title>VIEW LAYERS</title>
+        <title>MODIFY</title>
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <!-- Bootstrap responsive -->
@@ -28,7 +28,6 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
    var modify = function( text ){
    
                
-                 alert("modify");
                  $.cookie("MODIFYLAYERID",text);
                  window.location = "modify3.php";
                  
@@ -87,9 +86,10 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         <div class="nav-collapse collapse">        
                             <ul class="nav pull-right">
 
-                                <li><a href="view.php">View </a></li>
-                                <li><a href="create.php">Create Layout</a></li>
-                                <li><a href="modify.php">Alter Layout</a></li>
+                                <li><a href="monitor.php">Monitor </a></li>
+                                <li><a href="view.php" >View </a></li>
+                                <li><a href="create.php">Create</a></li>
+                                <li><a href="modify.php" class='active-link'>Alter </a></li>
 
 
                                 <?php
@@ -123,7 +123,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <div class="content">
             <div class="container">
                 <h1>Select Level/Layer for the given layout</h1>
-                <table border="1">
+                <table border="1" class="table table-hover">
                     <tr>
                         <th>Layer No</th>
                         <th>Status</th>

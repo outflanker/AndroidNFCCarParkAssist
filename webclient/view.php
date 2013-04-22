@@ -25,17 +25,20 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <script src="js/bootstrap.js"></script>
         <script src="js/signout.js"></script>        
         <script>
-            var test = function( text ){
-   
-                
-                //                var date = new Date();
-                //                var minutes = 60;
-                //                date.setTime(date.getTime() + (minutes * 60 * 1000));
-                //                $.cookie("VIEWLAYOUTID",text, { expires: date });
-                    
-                $.cookie("VIEWLAYOUTID",text);
-                 
-            }    
+            $(document).ready(function() {
+
+                $('#layouttable tr').click(function() {
+                    var id = $(this).find("a").attr("id");
+                    if(id)
+                         $.cookie("VIEWLAYOUTID",id);
+                    var href = $(this).find("a").attr("href");
+                    if(href) {
+                        window.location = href;
+                    }
+                });
+
+            });
+    
         </script>
     </head>
     <body>
@@ -56,10 +59,10 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         <div class="nav-collapse collapse">        
                             <ul class="nav pull-right">
 
-                                <li><a href="view.php">View </a></li>
-                                <li><a href="create.php">Create Layout</a></li>
-                                <li><a href="modify.php">Alter Layout</a></li>
-
+                                <li><a href="monitor.php">Monitor </a></li>
+                                <li><a href="view.php" class='active-link' >View</a></li>
+                                <li><a href="create.php">Create</a></li>
+                                <li><a href="modify.php">Alter </a></li>
 
                                 <?php
                                 if (isset($_COOKIE['LOGINUSERNAME'])) {
@@ -99,13 +102,14 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
                 curl_close($ch);
                 ?>
-                <table border="1">
+                <table border="1"  id="layouttable" class="table table-hover">
+                    <!--                     table-condensed"-->
                     <tr><th>LAYOUTID</th><th>LAYOUTNAME</th><th>NUMBEROFLAYERS</th><th>AREA</th><th>CITY</th><th>GPS</th></tr>
                     <?php
-                    $results_arr = json_decode($result,true);
+                    $results_arr = json_decode($result, true);
                     $empty = $results_arr['LAYOUTS'];
 
-                    
+
                     if (!is_null($empty)) {
 
                         $results = json_decode($result);
@@ -121,7 +125,8 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                             ?>
                                             <td>
                                                 <?php
-                                                print '<a id="link" onclick="test(\'' . $values . '\')" href="./view2.php">' . $values . '</a>';
+                                                print $values;
+                                                print '<a id="'.$values.'" href="./view2.php"></a>';
                                                 ?>
                                             </td>
                                             <?php

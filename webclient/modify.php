@@ -9,7 +9,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Bootbusiness | Short description about company">
         <meta name="author" content="Your name">
-        <title>VIEW LAYOUT</title>
+        <title>MODIFY</title>
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <!-- Bootstrap responsive -->
@@ -28,7 +28,6 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
    var modify = function( text ){
    
                
-                 alert("modify");
                  $.cookie("MODIFYLAYOUTID",text);
                  window.location = "modify1.php";
                  
@@ -86,9 +85,10 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         <div class="nav-collapse collapse">        
                             <ul class="nav pull-right">
 
-                                <li><a href="view.php">View </a></li>
-                                <li><a href="create.php">Create Layout</a></li>
-                                <li><a href="modify.php">Alter Layout</a></li>
+                                <li><a href="monitor.php">Monitor </a></li>
+                                <li><a href="view.php" >View </a></li>
+                                <li><a href="create.php">Create</a></li>
+                                <li><a href="modify.php" class='active-link'>Alter </a></li>
 
 
                                 <?php
@@ -128,7 +128,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 $result = curl_exec($ch);
                 curl_close($ch);
                 ?>
-                <table border="1">
+                <table border="1" class="table table-hover">
                     <tr><th>LAYOUTID</th><th>LAYOUTNAME</th><th>NUMBEROFLAYERS</th><th>AREA</th><th>CITY</th>
                         <th>GPS</th><th>MODIFY</th><th>DELETE</th>
                     </tr>

@@ -125,10 +125,11 @@ if (isset($_COOKIE['LOGINUSERNAME']))
                         <!-- Start: Primary navigation -->
                         <div class="nav-collapse collapse">        
                             <ul class="nav pull-right">
-
-                                <li><a href="signin.php">View </a></li>
-                                <li><a href="signin.php">Create Layout</a></li>
-                                <li><a href="signin.php">Alter Layout</a></li>
+                                
+                                <li><a href="signin.php">Monitor</a></li>
+                                <li><a href="signin.php">View</a></li>
+                                <li><a href="signin.php">Create</a></li>
+                                <li><a href="signin.php">Alter</a></li>
                                 <li><a href='signup.php' class='active-link' >Sign up</a></li>
                                  <li><a href='signin.php' >Sign in</a></li>
 
@@ -163,7 +164,7 @@ if (isset($_COOKIE['LOGINUSERNAME']))
                             </div>
                         </form>
                         <h4><i class="icon-question-sign"></i> Already have an account?</h4>
-                        <a href="signin.php" class="btn btn-large bottom-space">Signin</a>
+                        <a href="signin.php" class="btn btn-large btn-inverse bottom-space">Signin</a>
                     </div>
                 </div>
             </div>

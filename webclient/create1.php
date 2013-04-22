@@ -51,9 +51,10 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         <div class="nav-collapse collapse">        
                             <ul class="nav pull-right">
 
-                                <li><a href="view.php">View </a></li>
-                                <li><a href="create.php">Create Layout</a></li>
-                                <li><a href="modify.php">Alter Layout</a></li>
+                                <li><a href="monitor.php">Monitor </a></li>
+                                <li><a href="view.php" >View </a></li>
+                                <li><a href="create.php" class='active-link'>Create</a></li>
+                                <li><a href="modify.php" >Alter </a></li>
 
 
                                 <?php
@@ -96,7 +97,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 //        print $aa;
 //        print "number of lay : $numOfLayers";
                     ?>
-                    <table class="table table-condensed table-hover">
+                    <table class="table table-hover">
                         <tr>
                             <td>Layer Number</td>
                             <td>Status</td>
@@ -129,11 +130,11 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                 $size = $results['LAYERS'][0]['LAYOUTSIZE'];
 
 
-                                print '<tr><td><a onclick="test(\''.$i.'\')" href="./create2.php">' . $i . '</a>';
+//                                print '<tr><td><a onclick="test(\''.$i.'\')" href="./create2.php">' . $i . '</a>';
                                 if ($size == 0) {
-                                    print '</td><td>Not Defined</td></tr>';
-                                } else {
-                                    print '</td><td>Done</td></tr>';
+                                    print '<tr class=".error" ><td><a onclick="test(\''.$i.'\')" href="./create2.php">' . $i . '</a></td><td>Not Defined</td></tr>';
+                                } else{ 
+                                    print '<tr class=".success" ><td><a onclick="test(\''.$i.'\')" href="./create2.php">' . $i . '</a></td><td>Done</td></tr>';
                                 }
                             }
                         }

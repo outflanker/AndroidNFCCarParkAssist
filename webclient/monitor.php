@@ -9,7 +9,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Bootbusiness | Short description about company">
         <meta name="author" content="Your name">
-        <title>VIEW LAYOUT</title>
+        <title>MONITOR</title>
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <!-- Bootstrap responsive -->
@@ -26,15 +26,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <script src="js/signout.js"></script>        
         <script>
             var test = function( text ){
-   
-                
-                //                var date = new Date();
-                //                var minutes = 60;
-                //                date.setTime(date.getTime() + (minutes * 60 * 1000));
-                //                $.cookie("VIEWLAYOUTID",text, { expires: date });
-                    
                 $.cookie("MONITORLAYOUTID",text);
-                 
             }    
         </script>
     </head>
@@ -56,9 +48,10 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         <div class="nav-collapse collapse">        
                             <ul class="nav pull-right">
 
-                                <li><a href="view.php">View </a></li>
-                                <li><a href="create.php">Create Layout</a></li>
-                                <li><a href="modify.php">Alter Layout</a></li>
+                                <li><a href="monitor.php" class='active-link' >Monitor </a></li>
+                                <li><a href="view.php" >View </a></li>
+                                <li><a href="create.php">Create</a></li>
+                                <li><a href="modify.php">Alter </a></li>
 
 
                                 <?php
@@ -99,7 +92,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
                 curl_close($ch);
                 ?>
-                <table border="1">
+                <table border="1" class="table table-hover">
                     <tr><th>LAYOUTID</th><th>LAYOUTNAME</th><th>NUMBEROFLAYERS</th><th>AREA</th><th>CITY</th><th>GPS</th></tr>
                     <?php
                     $results_arr = json_decode($result,true);
