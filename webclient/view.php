@@ -30,7 +30,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 $('#layouttable tr').click(function() {
                     var id = $(this).find("a").attr("id");
                     if(id)
-                         $.cookie("VIEWLAYOUTID",id);
+                        $.cookie("VIEWLAYOUTID",id);
                     var href = $(this).find("a").attr("href");
                     if(href) {
                         window.location = href;
@@ -101,18 +101,17 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 $result = curl_exec($ch);
 
                 curl_close($ch);
-                ?>
-                <table border="1"  id="layouttable" class="table table-hover">
-                    <!--                     table-condensed"-->
-                    <tr><th>LAYOUTID</th><th>LAYOUTNAME</th><th>NUMBEROFLAYERS</th><th>AREA</th><th>CITY</th><th>LATITUDE</th>
-                    <th>LONGITUDE</th><th>PARKINGRATE</th></tr>
-                    <?php
-                    $results_arr = json_decode($result, true);
-                    $empty = $results_arr['LAYOUTS'];
+                $results_arr = json_decode($result, true);
+                $empty = $results_arr['LAYOUTS'];
 
 
-                    if (!is_null($empty)) {
-
+                if (!is_null($empty)) {
+                    ?>
+                    <table border="1"  id="layouttable" class="table table-hover">
+                        <!--                     table-condensed"-->
+                        <tr><th>LAYOUTID</th><th>LAYOUTNAME</th><th>NUMBEROFLAYERS</th><th>AREA</th><th>CITY</th><th>LATITUDE</th>
+                            <th>LONGITUDE</th><th>PARKINGRATE</th></tr>
+                        <?php
                         $results = json_decode($result);
 
 
@@ -120,34 +119,36 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                             foreach ($jsons as $key => $value) {
                                 ?>
                                 <tr>
-                                    <?php
-                                    foreach ($value as $keys => $values) {
-                                        if ($keys == "LAYOUTID") {
-                                            ?>
-                                            <td>
-                                                <?php
-                                                print $values;
-                                                print '<a id="'.$values.'" href="./view2.php"></a>';
-                                                ?>
-                                            </td>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <td>
-                                                <?php
-                                                print $values;
-                                                ?>
-                                            </td>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
-                                </tr>
                                 <?php
+                                foreach ($value as $keys => $values) {
+                                    if ($keys == "LAYOUTID") {
+                                        ?>
+                                            <td>
+                                            <?php
+                                            print $values;
+                                            print '<a id="' . $values . '" href="./view2.php"></a>';
+                                            ?>
+                                            </td>
+                                                <?php
+                                            } else {
+                                                ?>
+                                            <td>
+                                            <?php
+                                            print $values;
+                                            ?>
+                                            </td>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                </tr>
+                                    <?php
+                                }
                             }
+                        } else {
+                            print "<h2>No layouts to display</h2>";
                         }
-                    }
-                    ?>
+                        ?>
                 </table>
 
             </div>

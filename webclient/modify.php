@@ -25,11 +25,11 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <script src="js/bootstrap.js"></script>
         <script src="js/signout.js"></script>        
         <script>
-   var modify = function( text ){
+            var modify = function( text ){
    
                
-                 $.cookie("MODIFYLAYOUTID",text);
-                 window.location = "modify1.php";
+                $.cookie("MODIFYLAYOUTID",text);
+                window.location = "modify1.php";
                  
             }
             
@@ -37,30 +37,30 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 
                 var ans =confirm("Are you sure you want to delete the entire layout : "+name+" ?");
                 if(ans==true)
-                    {
-                        $.ajax({
-                            url: "deleteLayout.php",
-                            type: 'POST',
-                            data :"layoutid="+id,
-                            datatype :"text",
-                            async: false, 
-                            cache: false,
-                            timeout: 30000,
-                            error: function(){
-                                return true;
-                            },
-                            success: function(msg){                        
-                                alert(msg);
+                {
+                    $.ajax({
+                        url: "deleteLayout.php",
+                        type: 'POST',
+                        data :"layoutid="+id,
+                        datatype :"text",
+                        async: false, 
+                        cache: false,
+                        timeout: 30000,
+                        error: function(){
+                            return true;
+                        },
+                        success: function(msg){                        
+                            alert(msg);
                                 
-                                location.reload();
+                            location.reload();
                                            
                          
                            
-                            }
+                        }
                     
 
-                        });
-                    }
+                    });
+                }
             }
             
             
@@ -127,54 +127,66 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 $result = curl_exec($ch);
                 curl_close($ch);
+                $results_arr = json_decode($result, true);
+                    $empty = $results_arr['LAYOUTS'];
+
+
+                    if (!is_null($empty)) {
+
                 ?>
                 <table border="1" class="table table-hover">
                     <tr><th>LAYOUTID</th><th>LAYOUTNAME</th><th>NUMBEROFLAYERS</th><th>AREA</th><th>CITY</th>
                         <th>LATITUDE</th>
-                    <th>LONGITUDE</th><th>PARKINGRATE</th><th>MODIFY</th><th>DELETE</th>
+                        <th>LONGITUDE</th><th>PARKINGRATE</th><th>MODIFY</th><th>DELETE</th>
                     </tr>
                     <?php
-                    $results = json_decode($result);
-                    foreach ($results as $key => $jsons) {
-                        foreach ($jsons as $key => $value) {
-                            ?>
-                            <tr>
-                                <?php
-                                foreach ($value as $keys => $values) {
-                                    if ($keys == "LAYOUTID") {
-                                        ?>
-                                        <td>
-                                            <?php
-                                            $layoutID = $values ;
-                                            print '<a id="link" onclick="test(\'' . $values . '\')" href="./view2.php">' . $values . '</a>';
+                    
+                        $results = json_decode($result);
+                        $results = json_decode($result);
+                        foreach ($results as $key => $jsons) {
+                            foreach ($jsons as $key => $value) {
+                                ?>
+                                <tr>
+                                    <?php
+                                    foreach ($value as $keys => $values) {
+                                        if ($keys == "LAYOUTID") {
                                             ?>
-                                        </td>
-                                        <?php
-                                    } else {
-                                        if($keys == "LAYOUTNAME")
-                                            $name = $values;
-                                        ?>
-                                        <td>
+                                            <td>
+                                                <?php
+                                                $layoutID = $values;
+                                                print '<a id="link" onclick="test(\'' . $values . '\')" href="./view2.php">' . $values . '</a>';
+                                                ?>
+                                            </td>
                                             <?php
-                                            print $values;
+                                        } else {
+                                            if ($keys == "LAYOUTNAME")
+                                                $name = $values;
+                                            ?>
+                                            <td>
+                                                <?php
+                                                print $values;
+                                            }
+                                            ?>
+
+                                            <?php
                                         }
                                         ?>
-                                 
-                                      <?php  
-                                    }
-                                    ?>
-                                           </td>
-                                <td>
-                                    <button class="btn btn-success" onclick="modify('<?php echo $layoutID; ?>')">Modify</button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-success" onclick="del('<?php echo $layoutID; ?>','<?php echo $name;?>')">Delete</button>
-                                </td>
-                            </tr>
-                                    
-                                
-                            <?php
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-success" onclick="modify('<?php echo $layoutID; ?>')">Modify</button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-success" onclick="del('<?php echo $layoutID; ?>','<?php echo $name; ?>')">Delete</button>
+                                    </td>
+                                </tr>
+
+
+                                <?php
+                            }
                         }
+                    }
+                    else {
+                        print "<h2>No layouts to display</h2>";
                     }
                     ?>
                 </table>

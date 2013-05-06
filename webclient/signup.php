@@ -81,6 +81,8 @@ if (isset($_COOKIE['LOGINUSERNAME']))
                                 alert(msg);
                                 if(msg == "New user created!")
                                 {
+                                    var url = "index.php";    
+                                    $(location).attr('href',url);
                                     return true;
                                 }
                                 if(msg == "Username already exists")

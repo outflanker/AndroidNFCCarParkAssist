@@ -70,7 +70,10 @@ if (isset($_COOKIE['LOGINUSERNAME']))
                                 
                                 if(msg == "Validated")
                                 {
-                                    return true;                                                                                        
+                                    var url = "index.php";    
+                                    $(location).attr('href',url);  
+                                    return true;
+                                    
                                 }
                                 if(msg=="Incorrect password")
                                 {

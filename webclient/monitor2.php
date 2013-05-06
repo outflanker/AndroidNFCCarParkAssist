@@ -234,8 +234,9 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
                     $size = $results['LAYERS'][0]['LAYOUTSIZE'];
 
-
-                    if (isset($size)) {
+                    
+                    
+                    if ($size!=0) {
 
                         print "<span id='span" . $k . "' >";
 
