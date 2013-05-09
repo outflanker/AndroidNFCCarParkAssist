@@ -29,6 +29,22 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 $.cookie("MONITORLAYOUTID",text);
             }    
         </script>
+        <script>
+            $(document).ready(function() {
+
+                $('#layouttable tr').click(function() {
+                    var id = $(this).find("a").attr("id");
+                    if(id)
+                        $.cookie("MONITORLAYOUTID",id);
+                    var href = $(this).find("a").attr("href");
+                    if(href) {
+                        window.location = href;
+                    }
+                });
+
+            });
+    
+        </script>
     </head>
     <body>
         <!-- Start: HEADER -->
@@ -97,7 +113,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
                 if (!is_null($empty)) {
                     ?>
-                    <table border="1" class="table table-hover">
+                    <table border="1"  id="layouttable" class="table table-hover">
                         <tr><th>LAYOUTID</th><th>LAYOUTNAME</th><th>NUMBEROFLAYERS</th><th>AREA</th><th>CITY</th><th>LATITUDE</th>
                             <th>LONGITUDE</th><th>PARKINGRATE</th></tr>
                         <?php
@@ -114,7 +130,8 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                         ?>
                                             <td>
                                             <?php
-                                            print '<a id="link" onclick="test(\'' . $values . '\')" href="./monitor2.php">' . $values . '</a>';
+                                            print $values;
+                                            print '<a id="' . $values . '" href="./monitor2.php"></a>';
                                             ?>
                                             </td>
                                                 <?php

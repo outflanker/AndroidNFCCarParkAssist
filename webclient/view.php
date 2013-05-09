@@ -19,9 +19,9 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <link href="css/font-awesome-ie7.css" rel="stylesheet">
         <!-- Bootbusiness theme -->
         <link href="css/boot-business.css" rel="stylesheet">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js" ></script>
+         <script src="js/jquery.js" ></script>
         <script src="js/jquery.cookie.js" ></script>
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" ></script>
+        <script src="js/jquery.validate.js" ></script>
         <script src="js/bootstrap.js"></script>
         <script src="js/signout.js"></script>        
         <script>
