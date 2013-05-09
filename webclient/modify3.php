@@ -17,6 +17,16 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <!-- Font awesome - iconic font with IE7 support --> 
         <link href="css/font-awesome.css" rel="stylesheet">
         <link href="css/font-awesome-ie7.css" rel="stylesheet">
+        
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap responsive -->
+        <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+        <!-- Font awesome - iconic font with IE7 support --> 
+        <link href="css/font-awesome.css" rel="stylesheet">
+        <link href="css/font-awesome-ie7.css" rel="stylesheet">
+        <!-- Bootbusiness theme -->
+        <link href="css/boot-business.css" rel="stylesheet">
         <!-- Bootbusiness theme -->
          <script src="js/jquery.js" ></script>
         <script src="js/jquery.cookie.js" ></script>
