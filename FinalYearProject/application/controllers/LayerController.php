@@ -19,6 +19,9 @@ class LayerController extends Zend_Rest_Controller {
             mysql_select_db(parent::DATABASE, $con);
             $query = "DELETE FROM LAYER WHERE LAYOUTID='" . $layoutid . "' AND LAYERID='" . $layerid . "'";
             $res = mysql_query($query);
+            
+            $query = "UPDATE LAYOUT SET NUMOFLAYERS = NUMOFLAYERS - 1 WHERE LAYOUTID='" . $layoutid ."'";
+            $res = mysql_query($query);
         }
         mysql_close($con);
     }
@@ -37,9 +40,9 @@ class LayerController extends Zend_Rest_Controller {
         else 
         {
             mysql_select_db(parent::DATABASE, $con);
-            if(layerid==NULL)
+            if($layerid==NULL)
             {
-                $query = "SELECT * FROM LAYER WHERE LAYOUTID='" . $layoutid . "'";
+               $query = "SELECT * FROM LAYER WHERE LAYOUTID='" . $layoutid . "'";
             }
             else
             {
@@ -101,6 +104,25 @@ class LayerController extends Zend_Rest_Controller {
             mysql_select_db(parent::DATABASE, $con);
             $query = "UPDATE LAYER SET LAYOUTSIZE=" . $lysize . " WHERE LAYERID=" . $lyerid . " AND LAYOUTID='" . $lyout . "'";
             $res = mysql_query($query);
+            
+            $query = "DELETE FROM SLOTS WHERE LAYERID=".$lyerid;
+            $res= mysql_query($query);
+            
+            $n = $lysize % 10;
+            $m = ($lysize - $n) / 10;
+
+            for ($i = 1; $i <= $m; $i++) {
+                for ($j = 1; $j <= $n; $j++) {
+                    $appendid = ($i * 10) + $j;
+                    $sid = $lyout . "." . $lyerid . "." . $appendid;
+//                    $rate = 100.0;
+                    $usr = "";
+                    $query = "INSERT INTO SLOTS VALUES ('" . $sid . "'," . $lyerid . ",'" . $lyout . "'," . $appendid . ",'" . $usr . "','0000-00-00 00:00:00',0)";
+                    $res = mysql_query($query);
+                }
+            }
+            
+                    
         }
         mysql_close($con);
     }

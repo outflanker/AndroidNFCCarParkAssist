@@ -19,7 +19,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <link href="css/font-awesome-ie7.css" rel="stylesheet">
         <!-- Bootbusiness theme -->
         <link href="css/boot-business.css" rel="stylesheet">
-         <script src="js/jquery.js" ></script>
+        <script src="js/jquery.js" ></script>
         <script src="js/jquery.cookie.js" ></script>
         <script src="js/jquery.validate.js" ></script>
         <script src="js/bootstrap.js"></script>
@@ -173,142 +173,162 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                     $red = "./img/occupied.png";
                                     $blue = "./img/vacant.png";
 
-                                    $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layout?id=' . $layoutid);
-
+                                    $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer?id=0&&layoutid=' . $layoutid);
                                     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
                                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                                     $result = curl_exec($ch);
-
-
-
                                     curl_close($ch);
 
-                                    $results = json_decode($result, true);
-                                    $numlayers = $results['LAYOUTS'][0]['NUMOFLAYERS'];
+                                    $results = json_decode($result);
+
+                                    $numentries = json_decode($result, true);
+
+                                    $layernum = $numentries['LAYERS'];
+
+                                    if ($layernum != NULL) {
+//                                    print $numlayers;
+//                                    print "<li>Select the layers</li>";
+                                        foreach ($results as $key => $jsons) {
+                                            foreach ($jsons as $key => $value) {
+
+                                                foreach ($value as $keys => $values) {
+                                                    if ($keys == "LAYERID") {
+                                                        $i = $values;
+//                                        print '<li><a id='lay' . $r . '' href='#' onclick=scroll(\'".$r."'\') > Layer No : " . $r . "</a></li>";
+//                                        print '<li><a onclick="scroll(\'' . $r . '\')" id="lay' . $r . '" href="#" >' . $r . '</a>';
+                                                        print '<li><a id="lay' . $i . '" >' . $i . '</a></li>';
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        ?>
+
+
+
+
+
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End: Navigation wrapper -->   
+                </header>
+                <!-- End: HEADER -->
+                <!-- Start: MAIN CONTENT -->
+                <div class="content">
+                    <div class="container">
+
+                        <?php
+                        echo "</br></br></br></br></br>";
 
 //                                    print $numlayers;
 //                                    print "<li>Select the layers</li>";
-                                    for ($r = 0; $r < $numlayers; $r++) {
-//                                        print '<li><a id='lay' . $r . '' href='#' onclick=scroll(\'".$r."'\') > Layer No : " . $r . "</a></li>";
-//                                        print '<li><a onclick="scroll(\'' . $r . '\')" id="lay' . $r . '" href="#" >' . $r . '</a>';
-                                        print '<li><a id="lay' . $r . '" >' . $r . '</a>';
-                                    }
-                                }
-                                ?>
+                        foreach ($results as $key => $jsons) {
+                            foreach ($jsons as $key => $value) {
+
+                                foreach ($value as $keys => $values) {
+                                    if ($keys == "LAYERID") {
+                                        $i = $values;
+
+
+
+
+                                        $layerid = $i;
+                                        $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer?id=0&&layoutid=' . $layoutid . '&&layerid=' . $layerid);
+                                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                        $result = curl_exec($ch);
+                                        curl_close($ch);
+                                        $results = json_decode($result, true);
 
 
 
 
 
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End: Navigation wrapper -->   
-        </header>
-        <!-- End: HEADER -->
-        <!-- Start: MAIN CONTENT -->
-        <div class="content">
-            <div class="container">
-
-                <?php
-                echo "</br></br></br></br></br>";
-                for ($k = 0; $k < $numlayers; $k++) {
+                                        $size = $results['LAYERS'][0]['LAYOUTSIZE'];
 
 
 
+                                        if ($size != 0) {
 
-                    $layerid = $k;
-                    $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer?id=0&&layoutid=' . $layoutid . '&&layerid=' . $layerid);
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    $result = curl_exec($ch);
-                    curl_close($ch);
-                    $results = json_decode($result, true);
+                                            print "<span id='span" . $i . "' >";
 
 
+                                            $max_c = $size % 10;
+                                            $max_r = ( $size - $max_c) / 10;
 
+                                            print "<h2>  LEVEL   : " . $i . "    </h2>";
 
+                                            $ch1 = curl_init('http://localhost:8888/parking/FinalYearProject/public/Slot?id=0&&layoutid=' . $layoutid . '&&layerid=' . $layerid);
+                                            curl_setopt($ch1, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                                            curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
+                                            $result1 = curl_exec($ch1);
+                                            curl_close($ch1);
+                                            $array = array();
 
-                    $size = $results['LAYERS'][0]['LAYOUTSIZE'];
-
-                    
-                    
-                    if ($size!=0) {
-
-                        print "<span id='span" . $k . "' >";
-
-
-                        $max_c = $size % 10;
-                        $max_r = ( $size - $max_c) / 10;
-
-                        print "<h2>  LEVEL   : " . $k . "    </h2>";
-
-                        $ch1 = curl_init('http://localhost:8888/parking/FinalYearProject/public/Slot?id=0&&layoutid=' . $layoutid . '&&layerid=' . $layerid);
-                        curl_setopt($ch1, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-                        curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-                        $result1 = curl_exec($ch1);
-                        curl_close($ch1);
-                        $array = array();
-
-                        $results1 = json_decode($result1, true);
+                                            $results1 = json_decode($result1, true);
 
 //                        print $results1['SLOTS'][0]['SLOTID'];
 
 
-                        foreach ($results1 as $key => $jsons) {
-                            foreach ($jsons as $key => $value) {
+                                            foreach ($results1 as $key => $jsons) {
+                                                foreach ($jsons as $key => $value) {
 
-                                foreach ($value as $keys => $values) {
-                                    if ($keys == "POSITION") {
-                                        $pos = $values;
-                                    }
-                                    if ($keys == "SLOTTYPE") {
-                                        $type = $values;
-                                    }
-                                    if ($keys == "SLOTID") {
-                                        $slotID = $values;
-                                    }
-                                }
-                                $c = $pos % 10;
-                                $r = ($pos - $c) / 10;
+                                                    foreach ($value as $keys => $values) {
+                                                        if ($keys == "POSITION") {
+                                                            $pos = $values;
+                                                        }
+                                                        if ($keys == "SLOTTYPE") {
+                                                            $type = $values;
+                                                        }
+                                                        if ($keys == "SLOTID") {
+                                                            $slotID = $values;
+                                                        }
+                                                    }
+                                                    $c = $pos % 10;
+                                                    $r = ($pos - $c) / 10;
 
-                                $array[$r - 1][$c - 1] = $slotID;
-                                $typer[$r - 1][$c - 1] = $type;
-                            }
-                        }
+                                                    $array[$r - 1][$c - 1] = $slotID;
+                                                    $typer[$r - 1][$c - 1] = $type;
+                                                }
+                                            }
 
-                        
-                        print "<table border='1' id='tab" . $k . "' align='center'>";
 
-                        for ($i = 0; $i < $max_r; $i++) {
+                                            print "<table border='1' id='tab" . $i . "' align='center'>";
 
-                            echo "<tr>";
+                                            for ($i = 0; $i < $max_r; $i++) {
 
-                            for ($j = 0; $j < $max_c; $j++) {
+                                                echo "<tr>";
 
-                                echo "<td>";
+                                                for ($j = 0; $j < $max_c; $j++) {
 
-                                $type = $typer[$i][$j];
+                                                    echo "<td>";
 
-                                if ($type == "0") {
-                                    echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"$black\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
-                                } else if ($type == "1") {
-                                    echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$blue\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
-                                } else if ($type == "2") {
-                                    echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$red\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
-                                }
-                                
-                                echo "</td>";
-                            }
-                            echo "</tr>";
+                                                    $type = $typer[$i][$j];
+
+                                                    if ($type == "0") {
+                                                        echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"$black\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                                    } else if ($type == "1") {
+                                                        echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$blue\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                                    } else if ($type == "2") {
+                                                        echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$red\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                                    }
+
+                                                    echo "</td>";
+                                                }
+                                                echo "</tr>";
 //                            echo "</br></br></br></br>";
+                                            }
+                                            print "</table></span>";
+                                        }
+                                        echo "</br></br></br></br></br></br></br></br></br></br>";
+                                    }
+                                }
+                            }
                         }
-                        print "</table></span>";
                     }
-                    echo "</br></br></br></br></br></br></br></br></br></br>";
                 }
                 ?>
 

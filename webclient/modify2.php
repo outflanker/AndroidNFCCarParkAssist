@@ -19,17 +19,17 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <link href="css/font-awesome-ie7.css" rel="stylesheet">
         <!-- Bootbusiness theme -->
         <link href="css/boot-business.css" rel="stylesheet">
-         <script src="js/jquery.js" ></script>
+        <script src="js/jquery.js" ></script>
         <script src="js/jquery.cookie.js" ></script>
         <script src="js/jquery.validate.js" ></script>
         <script src="js/bootstrap.js"></script>
         <script src="js/signout.js"></script>         
-              <script>
-   var modify = function( text ){
+        <script>
+            var modify = function( text ){
    
                
-                 $.cookie("MODIFYLAYERID",text);
-                 window.location = "modify3.php";
+                $.cookie("MODIFYLAYERID",text);
+                window.location = "modify3.php";
                  
             }
             
@@ -37,36 +37,36 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 
                 var ans =confirm("Are you sure you want to delete the entire layer : "+id+" ?");
                 if(ans==true)
-                    {
-                        $.ajax({
-                            url: "deletelayer.php",
-                            type: 'POST',
-                            data :"layerid="+id,
-                            datatype :"text",
-                            async: false, 
-                            cache: false,
-                            timeout: 30000,
-                            error: function(){
-                                return true;
-                            },
-                            success: function(msg){                        
-                                alert(msg);
+                {
+                    $.ajax({
+                        url: "deletelayer.php",
+                        type: 'POST',
+                        data :"layerid="+id,
+                        datatype :"text",
+                        async: false, 
+                        cache: false,
+                        timeout: 30000,
+                        error: function(){
+                            return true;
+                        },
+                        success: function(msg){                        
+                            alert(msg);
                                 
-                                location.reload();
+                            location.reload();
                                            
                          
                            
-                            }
+                        }
                     
 
-                        });
-                    }
+                    });
+                }
             }
             
             
             
         </script>
-  
+
     </head>
     <body>
         <!-- Start: HEADER -->
@@ -122,66 +122,89 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <!-- Start: MAIN CONTENT -->
         <div class="content">
             <div class="container">
-                <h1>Select Level/Layer for the given layout</h1>
-                <table border="1" class="table table-hover">
-                    <tr>
-                        <th>Layer No</th>
-                        <th>Status</th>
-                        <th>Modify</th>
-                        <th>Delete</th>
 
-                    </tr>
-                    <?php
+                <?php
 //                    $layoutID = $_GET['layoutid'];
-                    if (isset($_COOKIE['MODIFYLAYOUTID'])) {
+                if (isset($_COOKIE['MODIFYLAYOUTID'])) {
 
-                        $layoutID = $_COOKIE['MODIFYLAYOUTID'];
+                    $layoutID = $_COOKIE['MODIFYLAYOUTID'];
 
-                        trim($layoutID);
-                        $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layout?id=' . $layoutID);
-                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                        $result = curl_exec($ch);
-                        curl_close($ch);
+                    trim($layoutID);
+                    $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer?id=0&&layoutid=' . $layoutID);
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    $result = curl_exec($ch);
+                    curl_close($ch);
 
-                        $results = json_decode($result, true);
+                    $results = json_decode($result);
 
-                        $layernum = $results['LAYOUTS'][0]['NUMOFLAYERS'];
+                    $numentries = json_decode($result, true);
+
+                    $layernum = $numentries['LAYERS'];
+
+                    if ($layernum != NULL) {
                         ?>
-                        <br/>
+                        <h1>Select Level/Layer for the given layout</h1>
+                        <table border="1" class="table table-hover">
+                            <tr>
+                                <th>Layer No</th>
+                                <th>Status</th>
+                                <th>Modify</th>
+                                <th>Delete</th>
 
-                        <?php
-                        for ($i = 0; $i < $layernum; $i++) {
+                            </tr>
+                            <?php
+                            foreach ($results as $key => $jsons) {
+                                foreach ($jsons as $key => $value) {
 
-                            $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer?id=0&&layoutid=' . $layoutID . '&&layerid=' . $i);
-                            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                            $result = curl_exec($ch);
-                            curl_close($ch);
-                            $results = json_decode($result, true);
+                                    foreach ($value as $keys => $values) {
+                                        if ($keys == "LAYERID") {
+                                            $i = $values;
+                                            ?>
+                                            <br/>
 
-                            $size = $results['LAYERS'][0]['LAYOUTSIZE'];
+                                            <?php
+                                            $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer?id=0&&layoutid=' . $layoutID . '&&layerid=' . $i);
+                                            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                            $result = curl_exec($ch);
+                                            curl_close($ch);
+                                            $results = json_decode($result, true);
+
+                                            $size = $results['LAYERS'][0]['LAYOUTSIZE'];
 
 
-                            if ($size == 0) {
-                                print '<tr><td>' . $i . '</td>';
-                                print '<td>Not Defined</td></tr>';
-                            } else {
-                                print '<tr><td><a href="./view3.php?layoutid=' . $layoutID . '&&layerid=' . $i . '">' . $i . '</a></td>';
-                                print '<td>Done</td>';
-                             ?>
-                        <td>
-                                    <button class="btn btn-success" onclick="modify('<?php echo $i; ?>')">Modify</button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-success" onclick="del('<?php echo $i; ?>')">Delete</button>
-                                </td>
-                             <?php
+                                            if ($size == 0) {
+                                                print '<tr><td>' . $i . '</td>';
+                                                print '<td>Not Defined</td></tr>';
+                                            } else {
+                                                print '<tr><td><a href="./view3.php?layoutid=' . $layoutID . '&&layerid=' . $i . '">' . $i . '</a></td>';
+                                                print '<td>Done</td>';
+                                                ?>
+                                                <td>
+                                                    <button class="btn btn-success" onclick="modify('<?php echo $i; ?>')">Modify</button>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-success" onclick="del('<?php echo $i; ?>')">Delete</button>
+                                                </td>
+                                                <?php
+                                            }
+                                        }
+                                    }
+                                }
                             }
+                        } else {
+                            print "<h1>No levels to display</h1>";
                         }
+                        ?>
+                        </table>  
+                        <form action="addlayer.php">
+                        <button class="btn btn-success">Add A Layer</button>
+                        </form>
+                        <?php
                     }
                     ?>
-                </table>
+                
             </div>
         </div>
         <!-- End: MAIN CONTENT -->

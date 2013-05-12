@@ -25,13 +25,28 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <script src="js/bootstrap.js"></script>
         <script src="js/signout.js"></script>  
         <script>
-        var test = function( text ){
-   
-                $.cookie("CREATELAYERID",text);
-                
-                 
-            }    
-</script>
+//            var test = function( text ){
+//   
+//                $.cookie("CREATELAYERID",text);
+//                
+//                 
+//            }    
+            
+           $(document).ready(function() {
+
+                $('#layertable tr').click(function() {
+                    var text = $(this).find("a").attr("id");
+                    $.cookie("CREATELAYERID",text);
+                    $.cookie("CREATEDONE","create1.php");
+                    var href = $(this).find("a").attr("href");
+                    if(href) {
+                        window.location = href;
+                    }
+                });
+
+            });
+    
+        </script>
     </head>
     <body>
         <!-- Start: HEADER -->
@@ -97,7 +112,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 //        print $aa;
 //        print "number of lay : $numOfLayers";
                     ?>
-                    <table class="table table-hover">
+                    <table id="layertable" class="table table-hover">
                         <tr>
                             <td>Layer Number</td>
                             <td>Status</td>
@@ -131,11 +146,21 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
 
 //                                print '<tr><td><a onclick="test(\''.$i.'\')" href="./create2.php">' . $i . '</a>';
+//                                if ($size == 0) {
+//                                    print '<tr class=".error" ><td><a onclick="test(\''.$i.'\')" href="./create2.php">' . $i . '</a></td><td>Not Defined</td></tr>';
+//                                } else{ 
+//                                    print '<tr class=".success" ><td><a onclick="test(\''.$i.'\')" href="./create2.php">' . $i . '</a></td><td>Done</td></tr>';
+//                                }
+
                                 if ($size == 0) {
-                                    print '<tr class=".error" ><td><a onclick="test(\''.$i.'\')" href="./create2.php">' . $i . '</a></td><td>Not Defined</td></tr>';
-                                } else{ 
-                                    print '<tr class=".success" ><td><a onclick="test(\''.$i.'\')" href="./create2.php">' . $i . '</a></td><td>Done</td></tr>';
+                                    print '<tr class="warning"><td>' . $i . '<a id='.$i.' href="./create2.php?layoutid=' . $layoutID . '&&layerid=' . $i . '"></a></td>';
+                                    print '<td>Not Defined</td></tr>';
+                                } else {
+                                    print '<tr class="success" ><td>' . $i . '</td>';
+                                    print '<td>Done</td></tr>';
                                 }
+                                
+                               
                             }
                         }
                         ?>

@@ -232,7 +232,16 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                     </table>
                     </br>
                     </br>
-                    <form action='create1.php'>
+                    <?php
+                    
+                    if(isset($_COOKIE['CREATEDONE']))
+                    {
+                        $reference = $_COOKIE['CREATEDONE'];
+                    }                    
+                    ?>
+                    
+                    
+                    <form action='<?php echo $reference; ?>'>
                     <button id="done" class="btn btn-success">DONE </button>
                     </form>
                     

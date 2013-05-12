@@ -92,56 +92,73 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <!-- Start: MAIN CONTENT -->
         <div class="content">
             <div class="container">
-                <h1>Select Level/Layer for the given layout</h1>
-                <table border="1" id="layertable" class="table table-hover">
-                    <tr>
-                        <th>Layer No</th>
-                        <th>Status</th>
-
-                    </tr>
-                    <?php
+                <?php
 //                    $layoutID = $_GET['layoutid'];
-                    if (isset($_COOKIE['VIEWLAYOUTID'])) {
+                if (isset($_COOKIE['VIEWLAYOUTID'])) {
 
-                        $layoutID = $_COOKIE['VIEWLAYOUTID'];
+                    $layoutID = $_COOKIE['VIEWLAYOUTID'];
 
-                        trim($layoutID);
-                        $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layout?id=' . $layoutID);
-                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                        $result = curl_exec($ch);
-                        curl_close($ch);
+                    trim($layoutID);
+                    $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer?id=0&&layoutid=' . $layoutID);
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    $result = curl_exec($ch);
+                    curl_close($ch);
 
-                        $results = json_decode($result, true);
+                    $results = json_decode($result);
 
-                        $layernum = $results['LAYOUTS'][0]['NUMOFLAYERS'];
+                    $numentries = json_decode($result, true);
+
+                    $layernum = $numentries['LAYERS'];
+
+                    if ($layernum != NULL) {
                         ?>
-                        <br/>
+                        <h1>Select Level/Layer for the given layout</h1>
+                        <table border="1" id="layertable" class="table table-hover">
+                            <tr>
+                                <th>Layer No</th>
+                                <th>Status</th>
 
-                        <?php
-                        for ($i = 0; $i < $layernum; $i++) {
+                            </tr>
 
-                            $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer?id=0&&layoutid=' . $layoutID . '&&layerid=' . $i);
-                            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                            $result = curl_exec($ch);
-                            curl_close($ch);
-                            $results = json_decode($result, true);
+                            <?php
+                            foreach ($results as $key => $jsons) {
+                                foreach ($jsons as $key => $value) {
 
-                            $size = $results['LAYERS'][0]['LAYOUTSIZE'];
+                                    foreach ($value as $keys => $values) {
+                                        if ($keys == "LAYERID") {
+                                            $i = $values;
+
+                                            $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer?id=0&&layoutid=' . $layoutID . '&&layerid=' . $i);
+                                            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                            $result = curl_exec($ch);
+                                            curl_close($ch);
+                                            $results = json_decode($result, true);
+
+                                            $size = $results['LAYERS'][0]['LAYOUTSIZE'];
 
 
-                            if ($size == 0) {
-                                print '<tr class="warning" ><td>' . $i . '</td>';
-                                print '<td>Not Defined</td></tr>';
-                            } else {
-                                print '<tr><td>' . $i . '<a href="./view3.php?layoutid=' . $layoutID . '&&layerid=' . $i . '"></a></td>';
-                                print '<td>Done</td></tr>';
+                                            if ($size == 0) {
+                                                print '<tr class="warning" ><td>' . $i . '</td>';
+                                                print '<td>Not Defined</td></tr>';
+                                            } else {
+                                                print '<tr><td>' . $i . '<a href="./view3.php?layoutid=' . $layoutID . '&&layerid=' . $i . '"></a></td>';
+                                                print '<td>Done</td></tr>';
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                        }
-                    }
-                    ?>
+                                    ?>
                 </table>
+                        <?php }
+                        else
+                        {
+                            print "<h1>No levels to display</h1>";
+                        }
+                }
+?>
             </div>
         </div>
         <!-- End: MAIN CONTENT -->

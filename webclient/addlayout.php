@@ -42,7 +42,7 @@
 
                     $layoutID = $layout['LAYOUTID'];
                     
-                    print $layoutID;
+//                    print $layoutID;
                     
                     setcookie("CREATELAYOUTID", $layoutID);
                     header("Location: create1.php");

@@ -163,24 +163,18 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
 //                    print_r($_POST);
                         
-                        $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer/');
-                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"LAYOUTID\":\"$layoutID\",\"LAYERID\":\"$layerID\",
-                \"LAYOUTSIZE\":\"$layoutSize\"}");
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                        $result = curl_exec($ch);
-//                    print $result;
-                        curl_close($ch);
+                       
                         
                         $black = "./img/noparking.png";
                         $red = "./img/occupied.png";
                         $blue = "./img/vacant.png";
                         
-                        
+                        echo "layout size is ".$layoutSize ."and the original size is ".$layoutSizeOriginal;
                         
 
                         if($layoutSize == $layoutSizeOriginal)
                         {
+                            //existing
                         
                             $max_c = $layoutSize % 10;
                         $max_r = ( $layoutSize - $max_c) / 10;
@@ -244,8 +238,80 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                             }
                             echo "</tr>";
                         }
+                        
+                        
+                        else
+                        {
+                            //new
+                            
+                            
+
+                        $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer/');
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+//                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"LAYOUTID\":\"$layoutID\",\"LAYERID\":\"$layerID\",
+                \"LAYOUTSIZE\":\"$layoutSize\"}");
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        $result = curl_exec($ch);
+                        curl_close($ch);
+
+
+
+
+
+                       
+
+                        $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Slot?id=0&&layoutid=' . $layoutID . '&&layerid=' . $layerID);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        $result = curl_exec($ch);
+
+                        $array = array();
+//                    print "$result";
+                        curl_close($ch);
+                        $results = json_decode($result);
+                        foreach ($results as $key => $jsons) {
+
+                            foreach ($jsons as $key => $value) {
+
+                                foreach ($value as $keys => $values) {
+                                    if ($keys == "POSITION") {
+                                        $pos = $values;
+                                    }
+                                    if ($keys == "SLOTID") {
+                                        $slotID = $values;
+                                    }
+                                }
+                                $c = $pos % 10;
+                                $r = ($pos - $c) / 10;
+
+                                $array[$r - 1][$c - 1] = $slotID;
+                            }
+                        }
+
+                        $max_c = $layoutSize % 10;
+
+                        $max_r = ( $layoutSize - $max_c ) / 10;
+
+                        for ($i = 0; $i < $max_r; $i++) {
+
+                            echo "<tr>";
+
+                            for ($j = 0; $j < $max_c; $j++) {
+
+                                echo "<td>";
+
+                                echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"" . $black . "\" WIDTH=\"100\" HEIGHT=\"100\" BORDER=\"2\" ALT=\"\" ONCLICK=\"change('" . $array[$i][$j] . "')\"  />";
+
+                                echo "</td>";
+                            }
+                            echo "</tr>";
+                        }
+                            
+                        
                     
                         
+                    }
                     }
                     ?>
                 </table>
