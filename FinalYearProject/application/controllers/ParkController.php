@@ -15,7 +15,7 @@ class ParkController extends Zend_Rest_Controller {
     const SLOTID = 'SLOTID';
     const USER = 'USER';
     const TIMEIN = 'TIMEIN';
-    const RATE = 'RATE';
+    const RATE = 'PARKINGRATE';
     const SLOTTYPE = 'SLOTTYPE';
 
     public function deleteAction() {
@@ -88,7 +88,7 @@ class ParkController extends Zend_Rest_Controller {
         $json = json_decode($incoming, true);
         $slotid = $json[self::SLOTID];
         $user = $json[self::USER];
-        
+
         $response = $this->getResponse();
 
         $con = mysql_connect(parent::DBSERVER, parent::DBUSER, parent::DBPWD);
@@ -103,55 +103,55 @@ class ParkController extends Zend_Rest_Controller {
             while ($row = mysql_fetch_array($res)) {
                 $user_db = $row[self::USER];
             }
-            if ($user_db == $user) {
-                
-                    $totalfare = null;
-                    $jsonreturn = null;
-
-                    $query = "SELECT TIMEIN FROM SLOTS WHERE SLOTID='" . $slotid . "'";
-                    $ratequery = "SELECT PARKINGRATE FROM LAYOUT L,SLOTS S WHERE S.LAYOUTID=L.LAYOUTID";
-
-                    $res = mysql_query($query);
-                    $res2 = mysql_query($ratequery);
-
-                    while ($row = mysql_fetch_array($res)) {
-                        $timein = $row[self::TIMEIN];
-                    }
-                    while ($row = mysql_fetch_array($res2)) {
-                        $rate = $row[self::RATE];
-                    }
-
-                    $query = "SELECT TIMESTAMPDIFF(MINUTE,'" . $timein . "',NOW())";
-                    $res = mysql_query($query);
-                    while ($row = mysql_fetch_array($res)) {
-                        $totaltime = $row[0];
-                    }
-
-                    if ($totaltime < 5) {
-                        $jsonreturn['OUTPUT'] = "error";
-                        $jsonreturn['FARE'] = -1;
-                    } else {
-                        $jsonreturn['OUTPUT'] = "unregistered";
-                        $jsonreturn['FARE'] = $rate * $totaltime;
-                        $query = "UPDATE SLOTS SET SLOTTYPE=1, USER='NOBODY' , TIMEIN='0000-00-00 00:00:00' WHERE SLOTID='" . $slotid . "'";
-                        $res = mysql_query($query);
-                    }
-                    $response->appendBody(json_encode($jsonreturn));
 
 
-                    
-                } else {
+            if (strcmp($user, $user_db) == 0) {
 
-                    //register
-                    $jsonreturn['OUTPUT'] = "registered";
+                $totalfare = null;
+                $jsonreturn = null;
+
+                $query = "SELECT TIMEIN,PARKINGRATE FROM LAYOUT L,SLOTS S WHERE S.LAYOUTID=L.LAYOUTID AND S.SLOTID='" . $slotid . "'";
+                $res = mysql_query($query);
+
+                while ($row = mysql_fetch_array($res)) {
+                    $timein = $row[self::TIMEIN];
+                    $rate = $row[self::RATE];
+                }
+
+                $query = "SELECT TIMESTAMPDIFF(MINUTE,'" . $timein . "',NOW())";
+                $res = mysql_query($query);
+                while ($row = mysql_fetch_array($res)) {
+                    $totaltime = $row[0];
+                }
+
+//                    print "rate is ---".$rate."    and timei is ---".$timein."---- and totaltime is ---".$totaltime."----";
+
+                if ($totaltime < 1) {
+                    $jsonreturn['OUTPUT'] = "timeerror";
                     $jsonreturn['FARE'] = -1;
-                    $query = "UPDATE SLOTS SET SLOTTYPE=2, USER='" . $user . "' , TIMEIN=NOW() WHERE SLOTID='" . $slotid . "'";
+                } else {
+                    $jsonreturn['OUTPUT'] = "unregistered";
+                    $jsonreturn['FARE'] = $rate * $totaltime;
+                    $query = "UPDATE SLOTS SET SLOTTYPE=1, USER='NOBODY' , TIMEIN='0000-00-00 00:00:00' WHERE SLOTID='" . $slotid . "'";
                     $res = mysql_query($query);
                 }
-                return $response;
+            } else if (strcmp("NOBODY", $user_db) == 0) {
+
+                //register
+                $jsonreturn['OUTPUT'] = "registered";
+                $jsonreturn['FARE'] = -1;
+                $query = "UPDATE SLOTS SET SLOTTYPE=2, USER='" . $user . "' , TIMEIN=NOW() WHERE SLOTID='" . $slotid . "'";
+                $res = mysql_query($query);
+            } else {
+                $jsonreturn['OUTPUT'] = "usererror";
+                $jsonreturn['FARE'] = -1;
             }
-            mysql_close($con);
+            $response->appendBody(json_encode($jsonreturn));
+            return $response;
         }
+        mysql_close($con);
     }
+
+}
 
 ?>
