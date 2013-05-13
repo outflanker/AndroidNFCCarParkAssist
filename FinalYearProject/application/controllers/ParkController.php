@@ -127,7 +127,7 @@ class ParkController extends Zend_Rest_Controller {
                         $totaltime = $row[0];
                     }
 
-                    if ($totaltime < 5) {
+                    if ($totaltime < 1) {
                         $jsonreturn['OUTPUT'] = "error";
                         $jsonreturn['FARE'] = -1;
                     } else {
@@ -147,6 +147,7 @@ class ParkController extends Zend_Rest_Controller {
                     $jsonreturn['FARE'] = -1;
                     $query = "UPDATE SLOTS SET SLOTTYPE=2, USER='" . $user . "' , TIMEIN=NOW() WHERE SLOTID='" . $slotid . "'";
                     $res = mysql_query($query);
+                    $response->appendBody("reistered"+json_encode($jsonreturn));
                 }
                 return $response;
             }
