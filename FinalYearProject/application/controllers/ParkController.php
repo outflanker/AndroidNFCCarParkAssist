@@ -98,15 +98,30 @@ class ParkController extends Zend_Rest_Controller {
         } else {
             mysql_select_db(parent::DATABASE, $con);
 
-            $query = "SELECT USER FROM SLOTS WHERE SLOTID='" . $slotid . "'";
+            $query = "SELECT USER,SLOTTYPE FROM SLOTS WHERE SLOTID='" . $slotid . "'";
             $res = mysql_query($query);
             while ($row = mysql_fetch_array($res)) {
                 $user_db = $row[self::USER];
+                $slottype = $row[self::SLOTTYPE];
             }
 
+            print $user;
+            print $user_db;
 
-            if (strcmp($user, $user_db) == 0) {
-
+            
+            
+            if($user == "NOBODY" && $slottype==2)
+            {
+                $query = "UPDATE SLOTS SET SLOTTYPE=1, USER='NOBODY' , TIMEIN='0000-00-00 00:00:00' WHERE SLOTID='" . $slotid . "'";
+               $res = mysql_query($query);
+               $jsonreturn['OUTPUT'] = "madevacant";
+                $jsonreturn['FARE'] = -1;
+               
+            }
+            
+            
+            else if ($slottype==2 && (strcmp($user, $user_db) == 0)) {
+            //unregister
                 $totalfare = null;
                 $jsonreturn = null;
 
@@ -127,24 +142,43 @@ class ParkController extends Zend_Rest_Controller {
 //                    print "rate is ---".$rate."    and timei is ---".$timein."---- and totaltime is ---".$totaltime."----";
 
                 if ($totaltime < 1) {
+            //unregister unsuccessful due to time out less than 1 min from timein
                     $jsonreturn['OUTPUT'] = "timeerror";
                     $jsonreturn['FARE'] = -1;
                 } else {
+                    
+             //unregister successful
                     $jsonreturn['OUTPUT'] = "unregistered";
                     $jsonreturn['FARE'] = $rate * $totaltime;
                     $query = "UPDATE SLOTS SET SLOTTYPE=1, USER='NOBODY' , TIMEIN='0000-00-00 00:00:00' WHERE SLOTID='" . $slotid . "'";
                     $res = mysql_query($query);
                 }
-            } else if (strcmp("NOBODY", $user_db) == 0) {
+            }
+            
+            
+            else if ($slottype==1 && (strcmp("NOBODY", $user_db) == 0)) {
 
                 //register
                 $jsonreturn['OUTPUT'] = "registered";
                 $jsonreturn['FARE'] = -1;
                 $query = "UPDATE SLOTS SET SLOTTYPE=2, USER='" . $user . "' , TIMEIN=NOW() WHERE SLOTID='" . $slotid . "'";
                 $res = mysql_query($query);
-            } else {
+            } 
+            
+            else if($slottype==2 && (strcmp($user, $user_db) !=0 )) {
+                //other user trying to register/un-register for a already registered slot
+                
                 $jsonreturn['OUTPUT'] = "usererror";
                 $jsonreturn['FARE'] = -1;
+            }
+            
+            else
+            {
+                //other error
+                $jsonreturn['OUTPUT'] = "otherrerror";
+                $jsonreturn['FARE'] = -1;
+                
+                
             }
             $response->appendBody(json_encode($jsonreturn));
             return $response;

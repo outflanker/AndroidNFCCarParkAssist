@@ -169,7 +169,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         $red = "./img/occupied.png";
                         $blue = "./img/vacant.png";
                         
-                        echo "layout size is ".$layoutSize ."and the original size is ".$layoutSizeOriginal;
+//                        echo "layout size is ".$layoutSize ."and the original size is ".$layoutSizeOriginal;
                         
 
                         if($layoutSize == $layoutSizeOriginal)

@@ -35,8 +35,8 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
  
                     var xhr = new XMLHttpRequest();
 
-                    var params = "slotid="+slotId+"&slottype="+"2";
-                    xhr.open("POST", "http://localhost:8888/parking/webclient/sendSlotRequest.php", true);
+                    var params = "slotid="+slotId+"&user=ADMIN";
+                    xhr.open("POST", "http://localhost:8888/parking/webclient/register.php", true);
                     xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
                     xhr.setRequestHeader( "Content-length", params.length );
                     xhr.setRequestHeader( "Connection", "close" );
@@ -65,8 +65,8 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 
                     var xhr = new XMLHttpRequest();
 
-                    var params = "slotid="+slotId+"&slottype="+"1";
-                    xhr.open("POST", "http://localhost:8888/parking/webclient/sendSlotRequest.php", false);
+                    var params = "slotid="+slotId+"&user=NOBODY";
+                    xhr.open("POST", "http://localhost:8888/parking/webclient/register.php", false);
                     xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
                     xhr.setRequestHeader( "Content-length", params.length );
                     xhr.setRequestHeader( "Connection", "close" );

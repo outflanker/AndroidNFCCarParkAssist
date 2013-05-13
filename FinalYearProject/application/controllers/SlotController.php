@@ -105,7 +105,7 @@ class SlotController extends Zend_Rest_Controller
         $json = json_decode($incoming,true);
         $slotid=$json[self::SLOTID];
         $type=$json[self::SLOTTYPE];
-        
+                
         $con = mysql_connect(parent::DBSERVER, parent::DBUSER,  parent::DBPWD);
         if (!$con)
         {
