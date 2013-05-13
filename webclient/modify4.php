@@ -19,77 +19,77 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <link href="css/font-awesome-ie7.css" rel="stylesheet">
         <!-- Bootbusiness theme -->
         <link href="css/boot-business.css" rel="stylesheet">
-         <script src="js/jquery.js" ></script>
+        <script src="js/jquery.js" ></script>
         <script src="js/jquery.cookie.js" ></script>
         <script src="js/jquery.validate.js" ></script>
         <script src="js/bootstrap.js"></script>
         <script src="js/signout.js"></script>         
         <script>
-        function change(slotId,rate)
-        {
-            if(document.getElementById(slotId).src=="http://localhost:8888/parking/webclient/img/vacant.png")    
+            function change(slotId,rate)
             {
-                document.getElementById(slotId).src="http://localhost:8888/parking/webclient/img/noparking.png";
- 
- 
- 
-                var xhr = new XMLHttpRequest();
-
-                var params = "slotid="+slotId+"&slottype="+"0";
-                xhr.open("POST", "http://localhost:8888/parking/webclient/sendSlotRequest.php", true);
-                xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
-                xhr.setRequestHeader( "Content-length", params.length );
-                xhr.setRequestHeader( "Connection", "close" );
-
-                xhr.onreadystatechange=function()
+                if(document.getElementById(slotId).src=="http://localhost:8888/parking/webclient/img/vacant.png")    
                 {
-                    if (xhr.readyState==4 && xhr.status==200)
-                    {
-                       
-                    }
-                }
+                    document.getElementById(slotId).src="http://localhost:8888/parking/webclient/img/noparking.png";
+ 
+ 
+ 
+                    var xhr = new XMLHttpRequest();
 
-                xhr.send(params);
+                    var params = "slotid="+slotId+"&slottype="+"0";
+                    xhr.open("POST", "http://localhost:8888/parking/webclient/sendSlotRequest.php", true);
+                    xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+                    xhr.setRequestHeader( "Content-length", params.length );
+                    xhr.setRequestHeader( "Connection", "close" );
+
+                    xhr.onreadystatechange=function()
+                    {
+                        if (xhr.readyState==4 && xhr.status==200)
+                        {
+                       
+                        }
+                    }
+
+                    xhr.send(params);
 
                             
                                     
-            }
+                }
                   
                   
                   
-            else if(document.getElementById(slotId).src=="http://localhost:8888/parking/webclient/img/noparking.png")    
-            {
-                document.getElementById(slotId).src="http://localhost:8888/parking/webclient/img/vacant.png";
+                else if(document.getElementById(slotId).src=="http://localhost:8888/parking/webclient/img/noparking.png")    
+                {
+                    document.getElementById(slotId).src="http://localhost:8888/parking/webclient/img/vacant.png";
                            
                 
                 
-                var xhr = new XMLHttpRequest();
+                    var xhr = new XMLHttpRequest();
 
-                var params = "slotid="+slotId+"&slottype="+"1";
-                xhr.open("POST", "http://localhost:8888/parking/webclient/sendSlotRequest.php", false);
-                xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
-                xhr.setRequestHeader( "Content-length", params.length );
-                xhr.setRequestHeader( "Connection", "close" );
+                    var params = "slotid="+slotId+"&slottype="+"1";
+                    xhr.open("POST", "http://localhost:8888/parking/webclient/sendSlotRequest.php", false);
+                    xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+                    xhr.setRequestHeader( "Content-length", params.length );
+                    xhr.setRequestHeader( "Connection", "close" );
 
-                xhr.onreadystatechange=function()
-                {
-                    if (xhr.readyState==4 && xhr.status==200)
+                    xhr.onreadystatechange=function()
                     {
+                        if (xhr.readyState==4 && xhr.status==200)
+                        {
                         
+                        }
                     }
-                }
 
-                xhr.send(params);
+                    xhr.send(params);
               
-            }
+                }
                      
                      
                     
-        }
+            }
         
         
         
-    </script>
+        </script>
     </head>
     <body>
         <!-- Start: HEADER -->
@@ -145,176 +145,173 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <!-- Start: MAIN CONTENT -->
         <div class="content">
             <div class="container">
-                <table border="1" align="center" >
-                       
-                    <?php
-                    if (isset($_COOKIE['MODIFYLAYOUTID']) && isset($_COOKIE['MODIFYLAYERID']) && isset($_COOKIE['MODIFYLAYERSIZEORIGINAL'])) {
-                        $layoutID = $_COOKIE['MODIFYLAYOUTID'];
-                        $layerID = $_COOKIE['MODIFYLAYERID'];
-                        
-                        $layoutSize = $_POST['layoutsize'];
-                        $layoutSizeOriginal = $_COOKIE['MODIFYLAYERSIZEORIGINAL'];
-                        
-                        
-                        trim($layerID);
-                        trim($layoutID);
-                        trim($layoutSize);
-                        
+                <div class="wrapper">
+                    <table border="1" align="center" >
+
+                        <?php
+                        if (isset($_COOKIE['MODIFYLAYOUTID']) && isset($_COOKIE['MODIFYLAYERID']) && isset($_COOKIE['MODIFYLAYERSIZEORIGINAL'])) {
+                            $layoutID = $_COOKIE['MODIFYLAYOUTID'];
+                            $layerID = $_COOKIE['MODIFYLAYERID'];
+
+                            $layoutSize = $_POST['layoutsize'];
+                            $layoutSizeOriginal = $_COOKIE['MODIFYLAYERSIZEORIGINAL'];
+
+
+                            trim($layerID);
+                            trim($layoutID);
+                            trim($layoutSize);
+
 
 //                    print_r($_POST);
-                        
-                       
-                        
-                        $black = "./img/noparking.png";
-                        $red = "./img/occupied.png";
-                        $blue = "./img/vacant.png";
-                        
+
+
+
+                            $black = "./img/noparking.png";
+                            $red = "./img/occupied.png";
+                            $blue = "./img/vacant.png";
+
 //                        echo "layout size is ".$layoutSize ."and the original size is ".$layoutSizeOriginal;
-                        
-
-                        if($layoutSize == $layoutSizeOriginal)
-                        {
-                            //existing
-                        
-                            $max_c = $layoutSize % 10;
-                        $max_r = ( $layoutSize - $max_c) / 10;
 
 
-                        $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Slot?id=0&&layoutid=' . $layoutID . '&&layerid=' . $layerID);
-                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                        $result = curl_exec($ch);
-                        
-                        
-                        
-                        curl_close($ch);
-                        $array = array();
-                        
-                        $results = json_decode($result);
+                            if ($layoutSize == $layoutSizeOriginal) {
+                                //existing
 
-                        
-                        foreach ($results as $key => $jsons) {
-                            foreach ($jsons as $key => $value) {
+                                $max_c = $layoutSize % 10;
+                                $max_r = ( $layoutSize - $max_c) / 10;
 
-                                foreach ($value as $keys => $values) {
-                                    if ($keys == "POSITION") {
-                                        $pos = $values;
-                                    }
-                                    if ($keys == "SLOTTYPE") {
-                                        $type = $values;
-                                    }
-                                     if ($keys == "SLOTID") {
-                                        $slotID = $values;
+
+                                $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Slot?id=0&&layoutid=' . $layoutID . '&&layerid=' . $layerID);
+                                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                $result = curl_exec($ch);
+
+
+
+                                curl_close($ch);
+                                $array = array();
+
+                                $results = json_decode($result);
+
+
+                                foreach ($results as $key => $jsons) {
+                                    foreach ($jsons as $key => $value) {
+
+                                        foreach ($value as $keys => $values) {
+                                            if ($keys == "POSITION") {
+                                                $pos = $values;
+                                            }
+                                            if ($keys == "SLOTTYPE") {
+                                                $type = $values;
+                                            }
+                                            if ($keys == "SLOTID") {
+                                                $slotID = $values;
+                                            }
+                                        }
+                                        $c = $pos % 10;
+                                        $r = ($pos - $c) / 10;
+
+                                        $array[$r - 1][$c - 1] = $slotID;
+                                        $typer[$r - 1][$c - 1] = $type;
                                     }
                                 }
-                                $c = $pos % 10;
-                                $r = ($pos - $c) / 10;
 
-                                $array[$r - 1][$c - 1] = $slotID;
-                                $typer[$r - 1][$c - 1] = $type;
-                                
-                            }
-                        }
+                                for ($i = 0; $i < $max_r; $i++) {
 
-                        for ($i = 0; $i < $max_r; $i++) {
+                                    echo "<tr>";
 
-                            echo "<tr>";
+                                    for ($j = 0; $j < $max_c; $j++) {
 
-                            for ($j = 0; $j < $max_c; $j++) {
+                                        echo "<td>";
 
-                                echo "<td>";
+                                        $type = $typer[$i][$j];
 
-                                $type = $typer[$i][$j];
-
-                                if ($type == "0") {
-                                    echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"$black\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
-                                } else if ($type == "1") {
-                                    echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$blue\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
-                                } else if ($type == "2") {
-                                    echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$red\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                        if ($type == "0") {
+                                            echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"$black\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                        } else if ($type == "1") {
+                                            echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$blue\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                        } else if ($type == "2") {
+                                            echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$red\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                        }
+                                    }
+                                    echo "</td>";
                                 }
-                                }
-                                echo "</td>";
-                            }
-                            echo "</tr>";
-                        }
-                        
-                        
-                        else
-                        {
-                            //new
-                            
-                            
+                                echo "</tr>";
+                            } else {
+                                //new
 
-                        $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer/');
-                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+
+                                $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer/');
+                                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 //                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"LAYOUTID\":\"$layoutID\",\"LAYERID\":\"$layerID\",
+                                curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"LAYOUTID\":\"$layoutID\",\"LAYERID\":\"$layerID\",
                 \"LAYOUTSIZE\":\"$layoutSize\"}");
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                        $result = curl_exec($ch);
-                        curl_close($ch);
+                                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                $result = curl_exec($ch);
+                                curl_close($ch);
 
 
 
 
 
-                       
 
-                        $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Slot?id=0&&layoutid=' . $layoutID . '&&layerid=' . $layerID);
-                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                        $result = curl_exec($ch);
 
-                        $array = array();
+                                $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Slot?id=0&&layoutid=' . $layoutID . '&&layerid=' . $layerID);
+                                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                $result = curl_exec($ch);
+
+                                $array = array();
 //                    print "$result";
-                        curl_close($ch);
-                        $results = json_decode($result);
-                        foreach ($results as $key => $jsons) {
+                                curl_close($ch);
+                                $results = json_decode($result);
+                                foreach ($results as $key => $jsons) {
 
-                            foreach ($jsons as $key => $value) {
+                                    foreach ($jsons as $key => $value) {
 
-                                foreach ($value as $keys => $values) {
-                                    if ($keys == "POSITION") {
-                                        $pos = $values;
-                                    }
-                                    if ($keys == "SLOTID") {
-                                        $slotID = $values;
+                                        foreach ($value as $keys => $values) {
+                                            if ($keys == "POSITION") {
+                                                $pos = $values;
+                                            }
+                                            if ($keys == "SLOTID") {
+                                                $slotID = $values;
+                                            }
+                                        }
+                                        $c = $pos % 10;
+                                        $r = ($pos - $c) / 10;
+
+                                        $array[$r - 1][$c - 1] = $slotID;
                                     }
                                 }
-                                $c = $pos % 10;
-                                $r = ($pos - $c) / 10;
 
-                                $array[$r - 1][$c - 1] = $slotID;
+                                $max_c = $layoutSize % 10;
+
+                                $max_r = ( $layoutSize - $max_c ) / 10;
+
+                                for ($i = 0; $i < $max_r; $i++) {
+
+                                    echo "<tr>";
+
+                                    for ($j = 0; $j < $max_c; $j++) {
+
+                                        echo "<td>";
+
+                                        echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"" . $black . "\" WIDTH=\"100\" HEIGHT=\"100\" BORDER=\"2\" ALT=\"\" ONCLICK=\"change('" . $array[$i][$j] . "')\"  />";
+
+                                        echo "</td>";
+                                    }
+                                    echo "</tr>";
+                                }
                             }
                         }
-
-                        $max_c = $layoutSize % 10;
-
-                        $max_r = ( $layoutSize - $max_c ) / 10;
-
-                        for ($i = 0; $i < $max_r; $i++) {
-
-                            echo "<tr>";
-
-                            for ($j = 0; $j < $max_c; $j++) {
-
-                                echo "<td>";
-
-                                echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"" . $black . "\" WIDTH=\"100\" HEIGHT=\"100\" BORDER=\"2\" ALT=\"\" ONCLICK=\"change('" . $array[$i][$j] . "')\"  />";
-
-                                echo "</td>";
-                            }
-                            echo "</tr>";
-                        }
-                            
-                        
-                    
-                        
-                    }
-                    }
-                    ?>
-                </table>
+                        ?>
+                    </table>
+                    <center>
+                    <form action='modify2.php'>
+                        <button id="done" class="btn btn-success">DONE </button>
+                    </form>
+                        </center>
+                </div>
             </div>
         </div>
         <!-- End: MAIN CONTENT -->

@@ -19,7 +19,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <link href="css/font-awesome-ie7.css" rel="stylesheet">
         <!-- Bootbusiness theme -->
         <link href="css/boot-business.css" rel="stylesheet">
-         <script src="js/jquery.js" ></script>
+        <script src="js/jquery.js" ></script>
         <script src="js/jquery.cookie.js" ></script>
         <script src="js/jquery.validate.js" ></script>
         <script src="js/bootstrap.js"></script>
@@ -123,37 +123,40 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
             trim($layoutID);
             trim($layerID);
             ?>
+            <div class="content">
+                <div class="container">
+
+                    <div class="row-fluid">
+                        <form class="form-horizontal" method="post" id="layerinput" action="create3.php">
+                            <fieldset>
+                                <div id="legend">
+                                    <legend class="">Create Layer</legend>
+                                </div>
 
 
-            <div class="row-fluid">
-                <form class="form-horizontal" method="post" id="layerinput" action="create3.php">
-                    <fieldset>
-                        <div id="legend">
-                            <legend class="">Create Layer</legend>
-                        </div>
+                                <input type='hidden' name='layoutid' id='layoutid'  value='<?php echo $layoutID; ?>' />
+
+                                <input type='hidden' name='layerid' id='layerid'  value="<?php echo $layerID; ?>" />   
 
 
-                        <input type='hidden' name='layoutid' id='layoutid'  value='<?php echo $layoutID; ?>' />
+                                <div class="control-group">
+                                    <label class="control-label"  for="gps">Layout Size</label>
+                                    <div class="controls">
+                                        <input type="text" name='layoutsize' id='layoutsize' placeholder="" class="input-xlarge">
+                                    </div>
+                                </div>
 
-                        <input type='hidden' name='layerid' id='layerid'  value="<?php echo $layerID; ?>" />   
+                                <!-- Submit -->
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <button class="btn btn-success">Next >></button>
+                                    </div>
+                                </div>
 
-
-                        <div class="control-group">
-                            <label class="control-label"  for="gps">Layout Size</label>
-                            <div class="controls">
-                                <input type="text" name='layoutsize' id='layoutsize' placeholder="" class="input-xlarge">
-                            </div>
-                        </div>
-
-                        <!-- Submit -->
-                        <div class="control-group">
-                            <div class="controls">
-                                <button class="btn btn-success">Next >></button>
-                            </div>
-                        </div>
-
-                    </fieldset>
-                </form>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
             </div>
         <?php } ?>
         <!-- End: MAIN CONTENT -->

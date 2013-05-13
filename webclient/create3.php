@@ -245,9 +245,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                     <button id="done" class="btn btn-success">DONE </button>
                     </form>
                     
-                    <form action='create2.php'>
-                    <button id="back" class="btn btn-success">BACK << </button>
-                    </form>
+                    
                     
                     
                 </div>

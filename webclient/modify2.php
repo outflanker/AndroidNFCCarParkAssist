@@ -176,19 +176,19 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
                                             if ($size == 0) {
                                                 print '<tr><td>' . $i . '</td>';
-                                                print '<td>Not Defined</td></tr>';
+                                                print '<td>Not Defined</td>';
                                             } else {
                                                 print '<tr><td><a href="./view3.php?layoutid=' . $layoutID . '&&layerid=' . $i . '">' . $i . '</a></td>';
                                                 print '<td>Done</td>';
-                                                ?>
-                                                <td>
-                                                    <button class="btn btn-success" onclick="modify('<?php echo $i; ?>')">Modify</button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-success" onclick="del('<?php echo $i; ?>')">Delete</button>
-                                                </td>
-                                                <?php
                                             }
+                                            ?>
+                                            <td>
+                                                <button class="btn btn-success" onclick="modify('<?php echo $i; ?>')">Modify</button>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-success" onclick="del('<?php echo $i; ?>')">Delete</button>
+                                            </td>
+                                            <?php
                                         }
                                     }
                                 }
@@ -197,14 +197,21 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                             print "<h1>No levels to display</h1>";
                         }
                         ?>
-                        </table>  
+                    </table>  
+                        <br>
+                        
+                    <center>
                         <form action="addlayer.php">
-                        <button class="btn btn-success">Add A Layer</button>
+                            <button class="btn btn-success">Add A Layer</button>
                         </form>
-                        <?php
-                    }
-                    ?>
-                
+                        <form action='index.php'>
+                            <button id="done" class="btn btn-success">DONE </button>
+                        </form>
+                    </center>
+                    <?php
+                }
+                ?>
+
             </div>
         </div>
         <!-- End: MAIN CONTENT -->
