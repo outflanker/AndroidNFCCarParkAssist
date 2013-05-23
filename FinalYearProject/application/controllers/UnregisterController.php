@@ -15,7 +15,7 @@ class UnregisterController extends Zend_Rest_Controller {
     const SLOTID = 'SLOTID';
     const USER = 'USER';
     const TIMEIN = 'TIMEIN';
-    const RATE = 'RATE';
+    const RATE = 'PARKINGRATE';
     const SLOTTYPE = 'SLOTTYPE';
 
     public function deleteAction() {
@@ -79,32 +79,46 @@ class UnregisterController extends Zend_Rest_Controller {
             $totalfare = null;
             $jsonreturn = null;
 
-            $query = "SELECT TIMEIN FROM SLOTS WHERE SLOTID='" . $slotid . "'";
-            $ratequery = "SELECT PARKINGRATE FROM LAYOUT L,SLOTS S WHERE S.LAYOUTID=L.LAYOUTID";
+            $query1 = "SELECT TIMEIN FROM SLOTS WHERE SLOTID='" . $slotid . "'";
+//            print "slot it ".$slotid;
+            $ratequery = "SELECT PARKINGRATE FROM LAYOUT L,SLOTS S WHERE S.LAYOUTID=L.LAYOUTID AND S.SLOTID='".$slotid."'";
 
-            $res = mysql_query($query);
+            
+//            print $ratequery;
+            $res1 = mysql_query($query1);
             $res2 = mysql_query($ratequery);
 
-            while ($row = mysql_fetch_array($res)) {
-                $timein = $row[self::TIMEIN];
+            while ($row1 = mysql_fetch_array($res1)) {
+                $timein = $row1[self::TIMEIN];
             }
             while ($row = mysql_fetch_array($res2)) {
                 $rate = $row[self::RATE];
             }
+            
+            
+//            print $timein ." and ". $rate;
 
-            $query = "SELECT TIMESTAMPDIFF(MINUTE,'" . $timein . "',NOW())";
-            $res = mysql_query($query);
-            while ($row = mysql_fetch_array($res)) {
-                $totaltime = $row[0];
+            $query2 = "SELECT TIMESTAMPDIFF(MINUTE,'" . $timein . "',NOW())";
+            print $query2;
+            $res2 = mysql_query($query2);
+            while ($row2 = mysql_fetch_array($res2)) {
+                $totaltime = $row2[0];
             }
-
+            
+            print "total".$totaltime;
+            
             if ($totaltime < 1) {
                 $jsonreturn['OUTPUT'] = "error";
                 $jsonreturn['FARE'] = -1;
             } else {
                 $jsonreturn['OUTPUT'] = "computed";
                 $jsonreturn['FARE'] = $rate * $totaltime;
-                   $query = "UPDATE SLOTS SET SLOTTYPE=1, USER='NOBODY' , TIMEIN='0000-00-00 00:00:00' WHERE SLOTID='" . $slotid . "'";
+                
+                print "output is ".$jsonreturn['OUTPUT'];
+                print "fare is ".$jsonreturn['FARE'];
+                
+                
+                $query = "UPDATE SLOTS SET SLOTTYPE=1, USER='NOBODY' , TIMEIN='0000-00-00 00:00:00' WHERE SLOTID='" . $slotid . "'";
                 $res = mysql_query($query);
             }
             $response->appendBody(json_encode($jsonreturn));

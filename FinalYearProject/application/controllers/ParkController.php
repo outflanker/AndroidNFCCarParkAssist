@@ -17,6 +17,10 @@ class ParkController extends Zend_Rest_Controller {
     const TIMEIN = 'TIMEIN';
     const RATE = 'PARKINGRATE';
     const SLOTTYPE = 'SLOTTYPE';
+    const LAYOUTNAME = 'LAYOUTNAME';
+    const CITY = 'CITY';
+    const AREA = 'AREA';
+    const POSITION = 'POSITION';
 
     public function deleteAction() {
         
@@ -43,8 +47,23 @@ class ParkController extends Zend_Rest_Controller {
                 $user = $row[self::USER];
                 $timein = $row[self::TIMEIN];
                 $type = $row[self::SLOTTYPE];
-                $slots[] = array(self::SLOTID => $slotid, self::USER => $user, self::TIMEIN => $timein, self::SLOTTYPE => $type);
+            
+                 $query1 = "SELECT L.LAYOUTNAME,L.CITY,L.AREA FROM SLOTS S,LAYOUT L WHERE L.LAYOUTID=S.LAYOUTID AND S.SLOTID='". $slotid ."'";
+                          $res1 = mysql_query($query1);
+            while ($row1 = mysql_fetch_array($res1)) {
+
+                $lyoutname = $row1[self::LAYOUTNAME];
+                
+                $city = $row1[self::CITY];
+                $area = $row1[self::AREA];
+
             }
+            
+                
+                $slots[] = array(self::SLOTID => $slotid, self::USER => $user, self::TIMEIN => $timein, self::SLOTTYPE => $type,  self::LAYOUTNAME =>$lyoutname,  self::AREA=>$area,  self::CITY=>$city);
+            
+            }
+            
             $jsonreturn['SLOTS'] = $slots;
             return $response->appendBody(json_encode($jsonreturn));
         }
@@ -105,8 +124,8 @@ class ParkController extends Zend_Rest_Controller {
                 $slottype = $row[self::SLOTTYPE];
             }
 
-            print $user;
-            print $user_db;
+//            print $user;
+//            print $user_db;
 
 
 
