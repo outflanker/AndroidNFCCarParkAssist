@@ -29,6 +29,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
    
                
                 $.cookie("MODIFYLAYOUTID",text);
+                $.cookie("VIEWLAYOUTID",text);
                 window.location = "modify1.php";
                  
             }
@@ -154,7 +155,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                             <td>
                                                 <?php
                                                 $layoutID = $values;
-                                                print '<a id="link" onclick="test(\'' . $values . '\')" href="./view2.php">' . $values . '</a>';
+                                                print '<a id="link" onclick="test(\'' . $values . '\')" href="./modifyviewlayout.php?layoutid=' . $layoutID .'">' . $values . '</a>';
                                                 ?>
                                             </td>
                                             <?php
@@ -194,6 +195,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
             </div>
         </div>
         <!-- End: MAIN CONTENT -->
+         <div class="clear"></div>
         <!-- Start: FOOTER -->
         <footer>
             <hr class="footer-divider">

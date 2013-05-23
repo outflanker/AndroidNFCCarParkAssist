@@ -159,6 +159,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
             </div>
         </div>
         <!-- End: MAIN CONTENT -->
+         <div class="clear"></div> 
         <!-- Start: FOOTER -->
         <footer>
             <hr class="footer-divider">

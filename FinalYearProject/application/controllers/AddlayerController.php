@@ -57,7 +57,7 @@ class AddlayerController extends Zend_Rest_Controller {
             die('Could not connect: ' . mysql_error());
         } else {
             mysql_select_db(parent::DATABASE, $con);
-            $$query = "UPDATE LAYOUT SET NUMOFLAYERS = NUMOFLAYERS + 1 WHERE LAYOUTID='" . $layoutid . "'";
+            $query = "UPDATE LAYOUT SET NUMOFLAYERS = NUMOFLAYERS + 1 WHERE LAYOUTID='" . $layoutid . "'";
             $res = mysql_query($query);
 
             $query = "SELECT MAX(LAYERID) AS LAYERID FROM LAYER WHERE LAYOUTID='" . $layoutid . "'";

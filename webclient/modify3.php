@@ -141,7 +141,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
             $results = json_decode($result, true);
 
             $size = $results['LAYERS'][0]['LAYOUTSIZE'];
-            print "hello".$size;
+            
             
             trim($size);
             ?>
@@ -173,6 +173,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
             </div>
 <?php } ?>
         <!-- End: MAIN CONTENT -->
+         <div class="clear"></div>
         <!-- Start: FOOTER -->
         <footer>
             <hr class="footer-divider">
