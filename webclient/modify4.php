@@ -164,7 +164,8 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
 //                    print_r($_POST);
 
-
+                            print $layoutSize;
+                            print $layoutSizeOriginal;
 
                             $black = "./img/noparking.png";
                             $red = "./img/occupied.png";

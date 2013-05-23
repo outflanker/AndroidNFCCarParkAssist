@@ -141,8 +141,9 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
             $results = json_decode($result, true);
 
             $size = $results['LAYERS'][0]['LAYOUTSIZE'];
+            print "hello".$size;
             
-            setcookie("MODIFYLAYERSIZEORIGINAL", $size);
+            trim($size);
             ?>
 
 

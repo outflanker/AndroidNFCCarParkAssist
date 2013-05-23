@@ -25,46 +25,80 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <script src="js/bootstrap.js"></script>
         <script src="js/signout.js"></script>         
         <script>
-            var modify = function( text ){
-   
-               
-                $.cookie("MODIFYLAYERID",text);
-                window.location = "modify3.php";
-                 
+            var modify = function(layoutid, layerid) {
+
+                $.cookie("MODIFYLAYERID", layoutid);
+
+                $.ajax({
+                    url: "checkmodifylayer.php",
+                    type: 'POST',
+                    data: "layoutid=" + layoutid + "&layerid=" + layerid,
+                    datatype: "text",
+                    async: false,
+                    cache: false,
+                    timeout: 30000,
+                    error: function() {
+                        return true;
+                    },
+                    success: function(msg) {
+
+
+                        if (msg == 0) {
+                            
+                                window.location = "modifyaddcookie.php";
+
+
+                        }
+                        else
+                        {
+                            alert("slots are occupied ! Free them to modify");
+                            location.reload();
+                        }
+
+
+
+
+
+                    }
+
+
+                });
+
+
             }
-            
-            var del = function(id){
-                
-                var ans =confirm("Are you sure you want to delete the entire layer : "+id+" ?");
-                if(ans==true)
+
+            var del = function(id) {
+
+                var ans = confirm("Are you sure you want to delete the entire layer : " + id + " ?");
+                if (ans == true)
                 {
                     $.ajax({
                         url: "deletelayer.php",
                         type: 'POST',
-                        data :"layerid="+id,
-                        datatype :"text",
-                        async: false, 
+                        data: "layerid=" + id,
+                        datatype: "text",
+                        async: false,
                         cache: false,
                         timeout: 30000,
-                        error: function(){
+                        error: function() {
                             return true;
                         },
-                        success: function(msg){                        
+                        success: function(msg) {
                             alert(msg);
-                                
+
                             location.reload();
-                                           
-                         
-                           
+
+
+
                         }
-                    
+
 
                     });
                 }
             }
-            
-            
-            
+
+
+
         </script>
 
     </head>
@@ -183,7 +217,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                             }
                                             ?>
                                             <td>
-                                                <button class="btn btn-success" onclick="modify('<?php echo $i; ?>')">Modify</button>
+                                                <button class="btn btn-success" onclick="modify('<?php echo $layoutID; ?>', '<?php echo $i ?>')">Modify</button>
                                             </td>
                                             <td>
                                                 <button class="btn btn-success" onclick="del('<?php echo $i; ?>')">Delete</button>
@@ -198,8 +232,8 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         }
                         ?>
                     </table>  
-                        <br>
-                        
+                    <br>
+
                     <center>
                         <form action="addlayer.php">
                             <button class="btn btn-success">Add A Layer</button>
