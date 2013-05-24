@@ -116,7 +116,7 @@ class LayerController extends Zend_Rest_Controller {
                     $appendid = ($i * 10) + $j;
                     $sid = $lyout . "." . $lyerid . "." . $appendid;
 //                    $rate = 100.0;
-                    $usr = "";
+                    $usr = "NOBODY";
                     $query = "INSERT INTO SLOTS VALUES ('" . $sid . "'," . $lyerid . ",'" . $lyout . "'," . $appendid . ",'" . $usr . "','0000-00-00 00:00:00',0)";
                     $res = mysql_query($query);
                 }
