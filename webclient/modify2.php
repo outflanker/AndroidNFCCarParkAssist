@@ -27,7 +27,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <script>
             var modify = function(layoutid, layerid) {
 
-                $.cookie("MODIFYLAYERID", layoutid);
+                $.cookie("MODIFYLAYERID", layerid);
 
                 $.ajax({
                     url: "checkmodifylayer.php",
@@ -42,13 +42,11 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                     },
                     success: function(msg) {
 
-
+                           
                         if (msg == 0) {
                             
                                 window.location = "modifyaddcookie.php";
-
-
-                        }
+                       }
                         else
                         {
                             alert("slots are occupied ! Free them to modify");
@@ -217,10 +215,10 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                             }
                                             ?>
                                             <td>
-                                                <button class="btn btn-success" onclick="modify('<?php echo $layoutID; ?>', '<?php echo $i ?>')">Modify</button>
+                                                <button class="btn btn-warning" onclick="modify('<?php echo $layoutID; ?>', '<?php echo $i ?>')">Modify</button>
                                             </td>
                                             <td>
-                                                <button class="btn btn-success" onclick="del('<?php echo $i; ?>')">Delete</button>
+                                                <button class="btn btn-danger" onclick="del('<?php echo $i; ?>')">Delete</button>
                                             </td>
                                             <?php
                                         }
@@ -236,7 +234,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
                     <center>
                         <form action="addlayer.php">
-                            <button class="btn btn-success">Add A Layer</button>
+                            <button class="btn btn-inverse">Add A Layer</button>
                         </form>
                         <form action='index.php'>
                             <button id="done" class="btn btn-success">DONE </button>

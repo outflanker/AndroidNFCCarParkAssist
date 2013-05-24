@@ -19,7 +19,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <link href="css/font-awesome-ie7.css" rel="stylesheet">
         <!-- Bootbusiness theme -->
         <link href="css/boot-business.css" rel="stylesheet">
-         <script src="js/jquery.js" ></script>
+        <script src="js/jquery.js" ></script>
         <script src="js/jquery.cookie.js" ></script>
         <script src="js/jquery.validate.js" ></script>
         <script src="js/bootstrap.js"></script>
@@ -97,7 +97,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         $red = "./img/occupied.png";
                         $blue = "./img/vacant.png";
 
-                        
+
                         $ch = curl_init('http://localhost:8888/parking/FinalYearProject/public/Layer?id=0&&layoutid=' . $layoutid . '&&layerid=' . $layerid);
                         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -121,7 +121,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
 
 
-                        
+
                         $array = array();
 
                         $results = json_decode($result);
@@ -169,10 +169,17 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                     }
                     ?>
                 </table>
+                </br>
+                <center>
+                    <form action='view2.php'>
+                        <button id="done" class="btn btn-inverse">Back << </button>
+                    </form>
+                </center>
             </div>
+
         </div>
         <!-- End: MAIN CONTENT -->
-         <div class="clear"></div>
+        <div class="clear"></div>
         <!-- Start: FOOTER -->
         <footer>
             <hr class="footer-divider">

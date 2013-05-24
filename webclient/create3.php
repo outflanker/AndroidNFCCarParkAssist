@@ -19,7 +19,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <link href="css/font-awesome-ie7.css" rel="stylesheet">
         <!-- Bootbusiness theme -->
         <link href="css/boot-business.css" rel="stylesheet">
-         <script src="js/jquery.js" ></script>
+        <script src="js/jquery.js" ></script>
         <script src="js/jquery.cookie.js" ></script>
         <script src="js/jquery.validate.js" ></script>
         <script src="js/bootstrap.js"></script>
@@ -96,6 +96,13 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         
         
     </script>
+    <script>
+
+        jQuery(function ($) {
+            $("IMG").tooltip()
+        });
+
+    </script>
     <body>
         <!-- Start: HEADER -->
         <header>
@@ -156,11 +163,11 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         $layoutID = $_POST['layoutid'];
                         $layerID = $_POST['layerid'];
                         $layoutSize = $_POST['layoutsize'];
-                        
+
                         trim($layerID);
                         trim($layoutID);
                         trim($layoutSize);
-                        
+
 
 //                    print_r($_POST);
 
@@ -220,10 +227,9 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
                             for ($j = 0; $j < $max_c; $j++) {
 
-                                echo "<td>";
+                                echo "<td valign='bottom'>";
 
-                                echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"" . $black . "\" WIDTH=\"100\" HEIGHT=\"100\" BORDER=\"2\" ALT=\"\" ONCLICK=\"change('" . $array[$i][$j] . "')\"  />";
-
+                                echo "<IMG  rel='tooltip' data-placement='left' title=\"" . $array[$i][$j] . "\" id=\"" . $array[$i][$j] . "\" SRC=\"" . $black . "\" WIDTH=\"100\" HEIGHT=\"100\" BORDER=\"2\" ALT=\"\" ONCLICK=\"change('" . $array[$i][$j] . "')\"  />";
                                 echo "</td>";
                             }
                             echo "</tr>";
@@ -233,21 +239,19 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                     </br>
                     </br>
                     <?php
-                    
-                    if(isset($_COOKIE['CREATEDONE']))
-                    {
+                    if (isset($_COOKIE['CREATEDONE'])) {
                         $reference = $_COOKIE['CREATEDONE'];
-                    }                    
+                    }
                     ?>
-                    
-                    
+
+
                     <form action='<?php echo $reference; ?>'>
-                    <button id="done" class="btn btn-success">DONE </button>
+                        <button id="done" class="btn btn-success">DONE </button>
                     </form>
-                    
-                    
-                    
-                    
+
+
+
+
                 </div>
             </div>
         </div>

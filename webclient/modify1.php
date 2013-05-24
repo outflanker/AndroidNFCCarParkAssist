@@ -19,7 +19,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         <link href="css/font-awesome-ie7.css" rel="stylesheet">
         <!-- Bootbusiness theme -->
         <link href="css/boot-business.css" rel="stylesheet">
-         <script src="js/jquery.js" ></script>
+        <script src="js/jquery.js" ></script>
         <script src="js/jquery.cookie.js" ></script>
         <script src="js/jquery.validate.js" ></script>
         <script src="js/bootstrap.js"></script>
@@ -30,7 +30,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                 
                 
                 
-                 $.validator.addMethod("parkingnotEqualTo", function(value, element) {
+                $.validator.addMethod("parkingnotEqualTo", function(value, element) {
                     return $('#parkingrate').val() != 0;
                 }, "Parking rate cannot be 0");        
                  
@@ -205,7 +205,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                     </div>
                                 </div>
 
-                                    <div class="control-group">
+                                <div class="control-group">
                                     <label class="control-label"  for="area">Area</label>
                                     <div class="controls">
                                         <input type="text" name="area" value="<?php echo $layoutarea; ?>" id="area" placeholder="" class="input-xlarge">
@@ -218,14 +218,14 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                         <input type="text" name='lati' value="<?php echo $layoutlatitude; ?>" id='lati' placeholder="" class="input-xlarge">
                                     </div>
                                 </div>
-                                
+
                                 <div class="control-group">
                                     <label class="control-label"  for="gps">Longitude</label>
                                     <div class="controls">
                                         <input type="text" name='longi' value="<?php echo $layoutlongitude; ?>" id='longi' placeholder="" class="input-xlarge">
                                     </div>
                                 </div>
-                                
+
                                 <div class="control-group">
                                     <label class="control-label"  for="gps">Parking Rate</label>
                                     <div class="controls">
@@ -242,7 +242,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
                                 <div class="control-group">
                                     <div class="controls">
-                                        <button  class="btn btn-success" id='done'>DONE</button>
+                                        <button  class="btn btn-success" id='done'>Done</button>
                                     </div>
                                 </div>
                         </form>
@@ -250,7 +250,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         <!-- Submit -->
                         <div class="control-group">
                             <div class="controls">
-                                <button  class="btn btn-success" id='changelayers'>Change Layers</button>
+                                <button  class="btn btn-primary" id='changelayers'>Change Layers</button>
                             </div>
                         </div>
 
@@ -264,11 +264,11 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                     </div>
                 </div>
             </div>
-    <?php
-}
-?>
+            <?php
+        }
+        ?>
         <!-- End: MAIN CONTENT -->
-         <div class="clear"></div>
+        <div class="clear"></div>
         <!-- Start: FOOTER -->
         <footer>
             <hr class="footer-divider">

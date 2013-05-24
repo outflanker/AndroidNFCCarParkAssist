@@ -90,6 +90,13 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
         
         
         </script>
+        <script>
+
+        jQuery(function ($) {
+            $("IMG").tooltip()
+        });
+
+    </script>
     </head>
     <body>
         <!-- Start: HEADER -->
@@ -164,8 +171,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
 //                    print_r($_POST);
 
-                            print $layoutSize;
-                            print $layoutSizeOriginal;
+                            
 
                             $black = "./img/noparking.png";
                             $red = "./img/occupied.png";
@@ -227,11 +233,11 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                         $type = $typer[$i][$j];
 
                                         if ($type == "0") {
-                                            echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"$black\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                            echo "<IMG rel='tooltip' data-placement='left' title=\"" . $array[$i][$j] . "\" id=\"" . $array[$i][$j] . "\" SRC=\"$black\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
                                         } else if ($type == "1") {
-                                            echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$blue\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                            echo "<IMG  rel='tooltip' data-placement='left' title=\"" . $array[$i][$j] . "\" id=\"" . $array[$i][$j] . "\" SRC=\"$blue\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
                                         } else if ($type == "2") {
-                                            echo "<IMG  id=\"" . $array[$i][$j] . "\" SRC=\"$red\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
+                                            echo "<IMG  rel='tooltip' data-placement='left' title=\"" . $array[$i][$j] . "\" id=\"" . $array[$i][$j] . "\" SRC=\"$red\" WIDTH=\"80\" ONCLICK=\"change('" . $array[$i][$j] . "')\" HEIGHT=\"80\" BORDER=\"2\" ALT=\"\"  \/>";
                                         }
                                     }
                                     echo "</td>";
@@ -297,7 +303,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
 
                                         echo "<td>";
 
-                                        echo "<IMG id=\"" . $array[$i][$j] . "\" SRC=\"" . $black . "\" WIDTH=\"100\" HEIGHT=\"100\" BORDER=\"2\" ALT=\"\" ONCLICK=\"change('" . $array[$i][$j] . "')\"  />";
+                                        echo "<IMG rel='tooltip' data-placement='left' title=\"" . $array[$i][$j] . "\" id=\"" . $array[$i][$j] . "\" SRC=\"" . $black . "\" WIDTH=\"100\" HEIGHT=\"100\" BORDER=\"2\" ALT=\"\" ONCLICK=\"change('" . $array[$i][$j] . "')\"  />";
 
                                         echo "</td>";
                                     }
@@ -308,8 +314,9 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         ?>
                     </table>
                     <center>
+                        </br>
                     <form action='modify2.php'>
-                        <button id="done" class="btn btn-success">DONE </button>
+                        <button id="done" class="btn btn-success">DONE</button>
                     </form>
                         </center>
                 </div>

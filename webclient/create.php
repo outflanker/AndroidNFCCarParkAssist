@@ -206,7 +206,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                             <!-- Submit -->
                             <div class="control-group">
                                 <div class="controls">
-                                    <button  class="btn btn-success" id='done'>Next >></button>
+                                    <button  class="btn btn-primary" id='done'>Next >></button>
                                 </div>
                             </div>
 

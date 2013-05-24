@@ -150,19 +150,24 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                     }
                                 }
                             }
-                                    ?>
-                </table>
-                        <?php }
-                        else
-                        {
-                            print "<h1>No levels to display</h1>";
-                        }
+                            ?>
+                        </table>
+                    <?php
+                    } else {
+                        print "<h1>No levels to display</h1>";
+                    }
                 }
-?>
+                ?>
+                </br>
+                <center>
+                    <form action='view.php'>
+                        <button id="done" class="btn btn-inverse">Back << </button>
+                    </form>
+                </center>
             </div>
         </div>
         <!-- End: MAIN CONTENT -->
-         <div class="clear"></div>
+        <div class="clear"></div>
         <!-- Start: FOOTER -->
         <footer>
             <hr class="footer-divider">

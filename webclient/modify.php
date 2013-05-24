@@ -174,10 +174,10 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                         ?>
                                     </td>
                                     <td>
-                                        <button class="btn btn-success" onclick="modify('<?php echo $layoutID; ?>')">Modify</button>
+                                        <button class="btn btn-warning" onclick="modify('<?php echo $layoutID; ?>')">Modify</button>
                                     </td>
                                     <td>
-                                        <button class="btn btn-success" onclick="del('<?php echo $layoutID; ?>','<?php echo $name; ?>')">Delete</button>
+                                        <button class="btn btn-danger" onclick="del('<?php echo $layoutID; ?>','<?php echo $name; ?>')">Delete</button>
                                     </td>
                                 </tr>
 
@@ -191,7 +191,12 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                     }
                     ?>
                 </table>
-
+                </br>
+                <center>
+                    <form action='view.php'>
+                        <button id="done" class="btn btn-success">Done </button>
+                    </form>
+                </center>
             </div>
         </div>
         <!-- End: MAIN CONTENT -->

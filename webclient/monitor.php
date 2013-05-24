@@ -155,6 +155,12 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                         }
                         ?>
                 </table>
+                </br>
+                <center>
+                    <form action='index.php'>
+                        <button id="done" class="btn btn-success">Done</button>
+                    </form>
+                </center>
 
             </div>
         </div>

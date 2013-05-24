@@ -323,7 +323,7 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                                             }
                                             print "</table></span>";
                                         }
-                                        echo "</br></br></br></br></br></br></br></br></br></br>";
+                                        echo "</br></br></br></br></br>";
                                     }
                                 }
                             }
@@ -331,6 +331,12 @@ if (!isset($_COOKIE['LOGINUSERNAME']))
                     }
                 }
                 ?>
+                       
+                <center>
+                    <form action='monitor.php'>
+                        <button id="done" class="btn btn-inverse">Back << </button>
+                    </form>
+                </center>
 
             </div>
         </div>
